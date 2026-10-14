@@ -16,7 +16,7 @@ export const siteMeta: SiteMeta = {
    * 비워 두면 Vercel 빌드에서는 프로젝트의 프로덕션 도메인(*.vercel.app 또는 연결한 도메인)을 자동으로 씁니다.
    */
   url: '',
-  title: '김현수 — 사용자의 불편을 작동하는 서비스로 바꾸는 개발자',
+  title: '김현수 — 불편함을 이해하고, 더 쉬운 경험을 만드는 프론트엔드 개발자',
   description:
     'DRAW&YOU와 띠링에서 UI 설계부터 웹·앱 프론트엔드 개발, API 연동과 배포까지 담당한 개발자 김현수의 포트폴리오입니다.',
   ogImage: '/og/drawandyou.jpg',
@@ -26,9 +26,12 @@ export const siteMeta: SiteMeta = {
 export const profile: Profile = {
   name: '김현수',
   nameEn: 'Hyunsoo Kim',
-  headline: '사용자의 불편을 발견하고, 작동하는 서비스로 바꾸는 개발자',
-  /** 제목 안에서 강조색으로 보여 줄 부분 */
-  headlineEmphasis: '작동하는 서비스',
+  /** 첫 화면 문구. \n 위치에서 줄을 바꿉니다. */
+  headline: '불편함을 이해하고,\n더 쉬운 경험을 만드는\n프론트엔드 개발자',
+  /** 흔들리는 애니메이션을 넣을 단어 */
+  headlineTrouble: '불편함',
+  /** 부드럽게 등장하며 강조색으로 보여 줄 구절 */
+  headlineEase: '더 쉬운 경험',
   subline:
     'DRAW&YOU와 띠링에서 UI 설계부터 웹·앱 프론트엔드 개발, API 연동과 배포까지 담당했습니다.',
   highlights: [
