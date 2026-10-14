@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { CaseSummary } from '../components/CaseSummary'
 import { Figure } from '../components/Figure'
 import { ProjectLinks } from '../components/ProjectLinks'
+import { Reveal } from '../components/Reveal'
 import { TaskList } from '../components/TaskList'
 import { projects } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
@@ -32,54 +34,64 @@ function ProjectDetail({ index }: { index: number }) {
   const ratio = project.hero.width / project.hero.height
   const mediaClass = ratio > 2.5 ? ' detail-hero__media--wide' : ratio < 1 ? ' detail-hero__media--portrait' : ''
 
+  let n = 0
+  const num = () => String(++n).padStart(2, '0')
+
   return (
     <article className="detail" aria-labelledby="detail-title">
       {/* 한 줄 설명과 실제 화면 */}
       <header className={`detail-hero${ratio < 1 ? ' detail-hero--portrait' : ''}`}>
         <div className="container detail-hero__grid">
           <div className="detail-hero__text">
-            <nav aria-label="이동 경로" className="breadcrumb">
+            <Reveal as="nav" aria-label="이동 경로" className="breadcrumb">
               <Link to="/#projects">
                 <span aria-hidden="true">← </span>대표 프로젝트
               </Link>
-            </nav>
-            <p className="eyebrow">
-              {project.platform} · {project.period} · {project.caseType}
-            </p>
-            <h1 id="detail-title" tabIndex={-1} className="detail-hero__title">
+            </Reveal>
+            <Reveal as="p" delay={1} className="detail-hero__meta">
+              <span>{project.platform}</span>
+              <span>{project.period}</span>
+              <span className="detail-hero__type">{project.caseType}</span>
+            </Reveal>
+            <Reveal as="h1" delay={1} id="detail-title" tabIndex={-1} className="detail-hero__title">
               {project.name}
-            </h1>
-            <p className="detail-hero__oneliner">{project.oneLiner}</p>
-            <p className="detail-hero__hook">{project.hook}</p>
+            </Reveal>
+            <Reveal as="p" delay={2} className="detail-hero__oneliner">
+              {project.oneLiner}
+            </Reveal>
+            <Reveal as="p" delay={3} className="detail-hero__hook">
+              {project.hook}
+            </Reveal>
           </div>
-          <div className={`detail-hero__media${mediaClass}`}>
+          <Reveal delay={3} className={`detail-hero__media${mediaClass}`}>
             <Figure
               media={project.hero}
-              sizes={ratio < 1 ? '280px' : '(min-width: 1180px) 1120px, 100vw'}
+              sizes={ratio < 1 ? '260px' : '(min-width: 1180px) 1120px, 100vw'}
               priority
               contain={ratio > 2.5}
             />
-          </div>
+          </Reveal>
         </div>
       </header>
 
       {/* 긴 설명 전 요약 */}
-      <section id="summary" className="detail-section detail-section--summary" aria-labelledby="summary-title">
+      <section id="summary" className="detail-summary" aria-labelledby="summary-title">
         <div className="container">
           <h2 id="summary-title" className="sr-only">
             요약
           </h2>
-          <CaseSummary summary={project.summary} />
+          <Reveal>
+            <CaseSummary summary={project.summary} />
+          </Reveal>
         </div>
       </section>
 
       <div className="container detail-body">
         {/* 팀 구성 및 담당 범위 */}
-        <section id="scope" className="detail-section" aria-labelledby="scope-title">
-          <h2 id="scope-title">팀 구성과 담당 범위</h2>
+        <DetailSection id="scope" index={num()} title="팀 구성과 담당 범위">
           <div className="scope">
             <div>
-              <h3 className="detail-sub">팀</h3>
+              <h3 className="label">팀</h3>
               <ul className="team-list">
                 {project.team.members.map((m) => (
                   <li key={m}>{m}</li>
@@ -88,59 +100,60 @@ function ProjectDetail({ index }: { index: number }) {
               <p className="muted scope__note">{project.team.note}</p>
             </div>
             <div>
-              <h3 className="detail-sub">내가 담당한 일</h3>
+              <h3 className="label">내가 담당한 일</h3>
               <TaskList tasks={project.roles} />
             </div>
             {project.implementation && (
               <div className="scope__wide">
-                <h3 className="detail-sub">{detail.extraTitle}</h3>
+                <h3 className="label">{detail.extraTitle}</h3>
                 <TaskList tasks={project.implementation} className="task-list--grid" />
               </div>
             )}
           </div>
-        </section>
+        </DetailSection>
 
         {/* 문제 상황 */}
-        <section id="problem" className="detail-section" aria-labelledby="problem-title">
-          <h2 id="problem-title">{detail.problem.title}</h2>
-          <div className="prose">
+        <DetailSection id="problem" index={num()} title={detail.problem.title}>
+          <div className="prose prose--lead">
             {detail.problem.body.map((p) => (
               <p key={p}>{p}</p>
             ))}
           </div>
-        </section>
+        </DetailSection>
 
         {/* 원인 분석 또는 판단 기준 */}
-        <section id="analysis" className="detail-section" aria-labelledby="analysis-title">
-          <h2 id="analysis-title">{detail.analysis.title}</h2>
+        <DetailSection id="analysis" index={num()} title={detail.analysis.title}>
           <p className="prose">{detail.analysis.intro}</p>
           <dl className="points">
-            {detail.analysis.points.map((pt) => (
-              <div key={pt.label} className="points__item">
+            {detail.analysis.points.map((pt, i) => (
+              <Reveal key={pt.label} className="points__item" delay={i}>
                 <dt>{pt.label}</dt>
                 <dd>{pt.text}</dd>
-              </div>
+              </Reveal>
             ))}
           </dl>
-        </section>
+        </DetailSection>
 
         {/* 구체적인 행동 */}
-        <section id="actions" className="detail-section" aria-labelledby="actions-title">
-          <h2 id="actions-title">{detail.actions.title}</h2>
+        <DetailSection id="actions" index={num()} title={detail.actions.title}>
           <ol className="steps">
-            {detail.actions.steps.map((step) => (
-              <li key={step.text} className="steps__item">
-                <p>{step.text}</p>
-                {step.tools && <span className="tools">{step.tools}</span>}
-              </li>
+            {detail.actions.steps.map((step, i) => (
+              <Reveal as="li" key={step.text} className="steps__item" delay={i}>
+                <span className="steps__num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <p>{step.text}</p>
+                  {step.tools && <span className="tools">{step.tools}</span>}
+                </div>
+              </Reveal>
             ))}
           </ol>
-        </section>
+        </DetailSection>
 
         {/* 결과와 검증 */}
-        <section id="result" className="detail-section" aria-labelledby="result-title">
-          <h2 id="result-title">{detail.result.title}</h2>
-          <div className="prose">
+        <DetailSection id="result" index={num()} title={detail.result.title}>
+          <div className="prose prose--lead">
             {detail.result.body.map((p) => (
               <p key={p}>{p}</p>
             ))}
@@ -152,13 +165,13 @@ function ProjectDetail({ index }: { index: number }) {
           )}
           {detail.result.verification && (
             <>
-              <h3 className="detail-sub">검증 방법</h3>
-              <dl className="points points--verify">
-                {detail.result.verification.map((v) => (
-                  <div key={v.label} className="points__item">
+              <h3 className="label label--spaced">검증 방법</h3>
+              <dl className="points">
+                {detail.result.verification.map((v, i) => (
+                  <Reveal key={v.label} className="points__item" delay={i}>
                     <dt>{v.label}</dt>
                     <dd>{v.text}</dd>
-                  </div>
+                  </Reveal>
                 ))}
               </dl>
             </>
@@ -168,40 +181,67 @@ function ProjectDetail({ index }: { index: number }) {
               <Figure media={detail.result.evidence} sizes="(min-width: 1180px) 760px, 100vw" />
             </div>
           )}
-        </section>
+        </DetailSection>
 
         {detail.gallery.length > 0 && (
-          <section id="screens" className="detail-section" aria-labelledby="screens-title">
-            <h2 id="screens-title">{detail.extraTitle}</h2>
+          <DetailSection id="screens" index={num()} title={detail.extraTitle}>
             <div className="gallery">
-              {detail.gallery.map((m) => (
-                <Figure key={m.src} media={m} sizes="(min-width: 960px) 280px, (min-width: 560px) 50vw, 100vw" zoomable />
+              {detail.gallery.map((m, i) => (
+                <Reveal key={m.src} delay={i}>
+                  <Figure media={m} sizes="(min-width: 1024px) 280px, (min-width: 560px) 50vw, 100vw" zoomable />
+                </Reveal>
               ))}
             </div>
-          </section>
+          </DetailSection>
         )}
 
         {/* 관련 자료 */}
-        <section id="resources" className="detail-section" aria-labelledby="resources-title">
-          <h2 id="resources-title">관련 자료</h2>
+        <DetailSection id="resources" index={num()} title="관련 자료">
           <ProjectLinks links={project.links} slug={project.slug} />
-        </section>
+        </DetailSection>
       </div>
 
       <nav className="detail-next" aria-label="다른 프로젝트">
-        <div className="container detail-next__inner">
-          <Link to="/#projects" className="text-link">
-            <span aria-hidden="true">← </span>전체 프로젝트
-          </Link>
+        <div className="container">
           <Link to={`/projects/${next.slug}`} className="detail-next__link">
-            <span className="muted">다음 프로젝트</span>
-            <strong>
-              {next.name} <span className="arrow" aria-hidden="true">→</span>
-            </strong>
+            <span className="label">다음 프로젝트</span>
+            <span className="detail-next__name">
+              {next.name}
+              <span className="arrow" aria-hidden="true">
+                →
+              </span>
+            </span>
             <span className="detail-next__hook">{next.hook}</span>
+          </Link>
+          <Link to="/#projects" className="text-link detail-next__back">
+            <span aria-hidden="true">← </span>전체 프로젝트
           </Link>
         </div>
       </nav>
     </article>
+  )
+}
+
+interface DetailSectionProps {
+  id: string
+  index: string
+  title: string
+  children: ReactNode
+}
+
+/** 왼쪽에 번호와 제목, 오른쪽에 내용을 두는 상세 섹션 */
+function DetailSection({ id, index, title, children }: DetailSectionProps) {
+  return (
+    <section id={id} className="detail-section" aria-labelledby={`${id}-title`}>
+      <Reveal className="detail-section__head">
+        <span className="detail-section__num" aria-hidden="true">
+          {index}
+        </span>
+        <h2 id={`${id}-title`}>{title}</h2>
+      </Reveal>
+      <Reveal className="detail-section__body" delay={1}>
+        {children}
+      </Reveal>
+    </section>
   )
 }

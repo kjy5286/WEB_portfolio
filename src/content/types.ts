@@ -10,6 +10,7 @@ export interface Profile {
   name: string
   nameEn: string
   headline: string
+  headlineEmphasis?: string
   subline: string
   highlights: { label: string; detail: string }[]
   links: { github: string; portfolioPdf: string; email: string }
