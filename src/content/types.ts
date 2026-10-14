@@ -33,7 +33,7 @@ export interface Task {
   tools?: string
 }
 
-export type LinkKind = 'service' | 'github' | 'demo' | 'apk' | 'pdf'
+export type LinkKind = 'service' | 'github' | 'demo' | 'apk' | 'figma' | 'manual'
 
 export interface ProjectLink {
   kind: LinkKind
@@ -51,6 +51,8 @@ export interface Project {
   slug: string
   name: string
   platform: string
+  /** 진행 기간. 예: '2025.07 – 2025.12' */
+  period: string
   oneLiner: string
   audience: string
   team: { members: string[]; note: string }
@@ -65,7 +67,14 @@ export interface Project {
     problem: { title: string; body: string[] }
     analysis: { title: string; intro: string; points: CasePoint[] }
     actions: { title: string; steps: { text: string; tools?: string }[] }
-    result: { title: string; body: string[]; verification?: CasePoint[]; evidence?: Media }
+    result: {
+      title: string
+      body: string[]
+      verification?: CasePoint[]
+      evidence?: Media
+      /** 결과 설명 가까이에 둘 시연 영상 등 */
+      links?: ProjectLink[]
+    }
     extraTitle: string
     gallery: Media[]
   }

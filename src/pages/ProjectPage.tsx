@@ -29,28 +29,36 @@ function ProjectDetail({ index }: { index: number }) {
     type: 'article',
   })
 
-  const isWide = project.hero.width / project.hero.height > 2.5
+  const ratio = project.hero.width / project.hero.height
+  const mediaClass = ratio > 2.5 ? ' detail-hero__media--wide' : ratio < 1 ? ' detail-hero__media--portrait' : ''
 
   return (
     <article className="detail" aria-labelledby="detail-title">
       {/* 한 줄 설명과 실제 화면 */}
-      <header className="detail-hero">
-        <div className="container">
-          <nav aria-label="이동 경로" className="breadcrumb">
-            <Link to="/#projects">
-              <span aria-hidden="true">← </span>대표 프로젝트
-            </Link>
-          </nav>
-          <p className="eyebrow">
-            {project.platform} · {project.caseType}
-          </p>
-          <h1 id="detail-title" tabIndex={-1} className="detail-hero__title">
-            {project.name}
-          </h1>
-          <p className="detail-hero__oneliner">{project.oneLiner}</p>
-          <p className="detail-hero__hook">{project.hook}</p>
-          <div className={`detail-hero__media${isWide ? ' detail-hero__media--wide' : ''}`}>
-            <Figure media={project.hero} sizes="(min-width: 1180px) 1120px, 100vw" priority contain={isWide} />
+      <header className={`detail-hero${ratio < 1 ? ' detail-hero--portrait' : ''}`}>
+        <div className="container detail-hero__grid">
+          <div className="detail-hero__text">
+            <nav aria-label="이동 경로" className="breadcrumb">
+              <Link to="/#projects">
+                <span aria-hidden="true">← </span>대표 프로젝트
+              </Link>
+            </nav>
+            <p className="eyebrow">
+              {project.platform} · {project.period} · {project.caseType}
+            </p>
+            <h1 id="detail-title" tabIndex={-1} className="detail-hero__title">
+              {project.name}
+            </h1>
+            <p className="detail-hero__oneliner">{project.oneLiner}</p>
+            <p className="detail-hero__hook">{project.hook}</p>
+          </div>
+          <div className={`detail-hero__media${mediaClass}`}>
+            <Figure
+              media={project.hero}
+              sizes={ratio < 1 ? '280px' : '(min-width: 1180px) 1120px, 100vw'}
+              priority
+              contain={ratio > 2.5}
+            />
           </div>
         </div>
       </header>
@@ -137,6 +145,11 @@ function ProjectDetail({ index }: { index: number }) {
               <p key={p}>{p}</p>
             ))}
           </div>
+          {detail.result.links && (
+            <div className="result-links">
+              <ProjectLinks links={detail.result.links} slug={project.slug} />
+            </div>
+          )}
           {detail.result.verification && (
             <>
               <h3 className="detail-sub">검증 방법</h3>

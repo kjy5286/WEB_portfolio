@@ -16,8 +16,12 @@ interface ProjectCardProps {
  */
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const headingId = `project-${project.slug}-title`
-  const isWide = project.hero.width / project.hero.height > 2.5
-  const primaryLink = project.links.find((l) => l.href && (l.kind === 'service' || l.kind === 'github'))
+  const ratio = project.hero.width / project.hero.height
+  const frameClass = ratio > 2.5 ? ' project-card__frame--wide' : ratio < 1 ? ' project-card__frame--portrait' : ''
+  // 결과물을 바로 볼 수 있는 링크를 우선합니다: 서비스 → 시연 영상 → GitHub
+  const primaryLink = (['service', 'demo', 'github'] as const)
+    .map((kind) => project.links.find((l) => l.kind === kind && l.href))
+    .find(Boolean)
 
   return (
     <article className="project-card" aria-labelledby={headingId}>
@@ -25,6 +29,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <p className="project-card__meta">
           <span className="project-card__num">{String(index + 1).padStart(2, '0')}</span>
           {project.platform}
+          <span aria-hidden="true">·</span>
+          <span>{project.period}</span>
         </p>
         <h3 id={headingId} className="project-card__title">
           {project.name}
@@ -32,13 +38,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <p className="project-card__oneliner">{project.oneLiner}</p>
       </header>
 
-      <div className={`project-card__media${isWide ? ' project-card__media--wide' : ''}`}>
-        <Figure
-          media={project.hero}
-          sizes="(min-width: 960px) 520px, 100vw"
-          contain={isWide}
-          showCaption={false}
-        />
+      <div className="project-card__media">
+        <div className={`project-card__frame${frameClass}`}>
+          <Figure
+            media={project.hero}
+            sizes={ratio < 1 ? '200px' : '(min-width: 960px) 520px, 100vw'}
+            contain={ratio > 2.5}
+            showCaption={false}
+          />
+        </div>
         {project.implementation && (
           <div className="project-card__impl">
             <p className="project-card__impl-title">주요 구현</p>

@@ -8,6 +8,8 @@
  */
 import type { Principle, Profile, Project, SideProject, SiteMeta } from './types'
 
+const DDIRING_DEMO = 'https://drive.google.com/file/d/1cYyqROnWaHZZO1uev67iBQqFZx5VSilf/view?usp=sharing'
+
 export const siteMeta: SiteMeta = {
   /** 배포 주소. 공유 미리보기(og:image 등)의 절대 경로에 사용됩니다. 예: 'https://hyunsoo.dev' */
   url: '',
@@ -31,10 +33,10 @@ export const profile: Profile = {
   ],
   links: {
     github: 'https://github.com/kjy5286',
-    /** 예: '/files/kim-hyunsoo-portfolio.pdf' (public/files/ 아래에 PDF를 넣으세요) */
-    portfolioPdf: '',
+    /** public/files/ 아래의 PDF. 공개용 사본이라 전화번호는 지워 두었습니다. */
+    portfolioPdf: '/files/kim-hyunsoo-portfolio.pdf',
     /** 실제 주소를 받은 경우에만 입력합니다. */
-    email: '',
+    email: 'kjy5662860@naver.com',
   },
   closing: '제가 만든 서비스와 문제 해결 과정을 더 확인해 보세요.',
 }
@@ -44,6 +46,7 @@ export const projects: Project[] = [
     slug: 'drawandyou',
     name: 'DRAW&YOU',
     platform: '웹 서비스',
+    period: '2025.07 – 2025.12',
     oneLiner: '그림과 일기를 입력하면 AI 감정 분석 결과와 치유 콘텐츠를 확인할 수 있는 웹 서비스',
     audience: '그림과 일기로 감정을 기록하고, AI 감정 분석 결과와 치유 콘텐츠를 확인하려는 사용자',
     team: {
@@ -166,6 +169,16 @@ export const projects: Project[] = [
     links: [
       { kind: 'service', label: '서비스 방문', href: 'https://drawandyou.com' },
       { kind: 'github', label: 'GitHub 저장소', href: 'https://github.com/DRAW-AND-YOU/WEB-Frontend' },
+      {
+        kind: 'figma',
+        label: 'Figma 와이어프레임',
+        href: 'https://www.figma.com/design/7lUGQerIAtWZMi0L9U51pp/%EA%B7%B8%EB%A6%AC%EA%B3%A0%EB%84%88-drawAndYou--wireFrame?node-id=0-1',
+      },
+      {
+        kind: 'manual',
+        label: '사용자 매뉴얼',
+        href: 'https://drive.google.com/file/d/1oPQ5g2f_OLTjCHdVcd4QcEUM3i2m2m1E/view?usp=sharing',
+      },
       /** 시연 영상 URL (YouTube 등)이 생기면 입력하세요. */
       { kind: 'demo', label: '시연 영상', href: '' },
     ],
@@ -180,6 +193,7 @@ export const projects: Project[] = [
     slug: 'ddiring',
     name: '띠링',
     platform: '모바일 앱 (Android)',
+    period: '2026.02 – 2026.06',
     oneLiner: '어르신과 보호자를 연결하는 AI 일상 돌봄 모바일 앱',
     audience: '어르신의 안부와 일상을 확인하려는 보호자, 그리고 간단한 흐름으로 안부 확인과 설문에 응답하는 어르신',
     team: {
@@ -210,12 +224,12 @@ export const projects: Project[] = [
       result: '음성 안내 기능은 유지하고, 실제 가족 목소리를 재현하는 방식은 제외했습니다.',
     },
     hero: {
-      src: '/images/ddiring/banner-1200.webp',
-      srcSet: '/images/ddiring/banner-600.webp 600w, /images/ddiring/banner-1200.webp 1200w',
-      width: 1200,
-      height: 300,
-      alt: '띠링 배너. 웃는 주황색 종 캐릭터와 “띠링 — 어르신 안부 확인 앱” 문구.',
-      caption: '띠링 프로젝트 배너',
+      src: '/images/ddiring/start-720.webp',
+      srcSet: '/images/ddiring/start-360.webp 360w, /images/ddiring/start-720.webp 720w',
+      width: 360,
+      height: 800,
+      alt: '띠링 앱 시작 화면. 웃는 주황색 종 캐릭터와 띠링 로고 아래에 “전화번호로 로그인” 버튼과 “처음이신가요?” 링크가 있다.',
+      caption: 'Android 앱 시작 화면',
     },
     detail: {
       problem: {
@@ -252,23 +266,20 @@ export const projects: Project[] = [
           '음성 안내 기능은 유지하고, 실제 가족 목소리를 재현하는 방식은 제외했습니다.',
           '결과물은 Android 테스트용 APK와 시연 영상으로 정리했습니다. 앱스토어 정식 출시 단계는 아닙니다.',
         ],
-        evidence: {
-          width: 1280,
-          height: 720,
-          alt: '띠링 시연 영상',
-          placeholder: {
-            label: '띠링 시연 영상 또는 앱 화면 캡처',
-            replacePath: 'public/images/ddiring/ (캡처) 또는 links의 demo href (영상 URL)',
-          },
-        },
+        /** 결과 설명 바로 아래에 보여 줄 자료 */
+        links: [{ kind: 'demo', label: '시연 영상 보기', href: DDIRING_DEMO }],
       },
       extraTitle: '주요 구현',
       gallery: [],
     },
     links: [
+      { kind: 'demo', label: '시연 영상', href: DDIRING_DEMO },
       { kind: 'github', label: 'GitHub 저장소', href: 'https://github.com/ddiring-team/FRONT' },
-      /** 시연 영상 URL이 생기면 입력하세요. */
-      { kind: 'demo', label: '시연 영상', href: '' },
+      {
+        kind: 'figma',
+        label: 'Figma 와이어프레임',
+        href: 'https://www.figma.com/design/djRijsyJIo9uOndvldJHoW/%EB%9D%A0%EB%A7%81-application-wireframe?node-id=695-2932',
+      },
       /** 공개 가능한 테스트용 APK 다운로드 경로가 있으면 입력하세요. */
       { kind: 'apk', label: 'Android 테스트용 APK', href: '' },
     ],

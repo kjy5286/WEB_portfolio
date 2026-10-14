@@ -7,7 +7,7 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} {profile.name} ({profile.nameEn})
         </p>
-        <p>프로젝트 화면은 각 팀 저장소에 공개된 실제 서비스 캡처입니다.</p>
+        <p>프로젝트 이미지는 실제 서비스·앱 화면 캡처입니다.</p>
       </div>
     </footer>
   )

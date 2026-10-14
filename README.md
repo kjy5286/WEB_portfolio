@@ -37,20 +37,19 @@ Node.js 22.18 이상이 필요합니다. (빌드 후 스크립트가 `src/conten
 ## 사용한 실제 자료
 
 - DRAW&YOU 화면 4장: [DRAW-AND-YOU/WEB-Frontend](https://github.com/DRAW-AND-YOU/WEB-Frontend) `docs/images/`의 서비스 캡처를 WebP로 변환
-- 띠링 배너: [ddiring-team/FRONT](https://github.com/ddiring-team/FRONT) `assets/banner.png`
+- 띠링 앱 시작 화면: 본인 제공 캡처 (`public/images/ddiring/start-*.webp`), 공유 이미지에는 [ddiring-team/FRONT](https://github.com/ddiring-team/FRONT) 배너 사용
+- 포트폴리오 PDF: `public/files/kim-hyunsoo-portfolio.pdf` — 공개용 사본으로 **전화번호를 지운** 버전
+- 시연 영상·Figma·사용자 매뉴얼 링크: 포트폴리오 PDF에 연결된 주소와 동일
 
 ## 교체·추가할 자료
 
 | 자료 | 넣을 위치 | 현재 상태 |
 | --- | --- | --- |
-| 포트폴리오 PDF | `public/files/` 에 넣고 `profile.links.portfolioPdf`에 `/files/파일명.pdf` | 없음 → 버튼 숨김 |
-| 이메일 | `profile.links.email` | 없음 → 표시 안 함 |
-| 배포 주소 | `siteMeta.url` | 없음 → 공유 이미지가 상대 경로 |
-| 띠링 앱 실제 화면 캡처 | `public/images/ddiring/` 후 `projects[1].hero` 또는 `detail.result.evidence` | 없음 → 배너로 대체 |
-| 띠링 시연 영상 URL | `projects[1].links` 의 `demo` | 없음 → 버튼 숨김 |
+| 이 포트폴리오 사이트의 배포 주소 | `siteMeta.url` | 없음 → 공유 이미지가 상대 경로 |
 | 띠링 테스트용 APK 공개 링크 (선택) | `projects[1].links` 의 `apk` | 없음 → 버튼 숨김 |
-| DRAW&YOU 시연 영상 URL | `projects[0].links` 의 `demo` | 없음 → 버튼 숨김 |
+| DRAW&YOU 시연 영상 URL (선택) | `projects[0].links` 의 `demo` | 없음 → 버튼 숨김 |
 | DRAW&YOU 성능 측정 캡처 (Performance 탭·DevTools) | `public/images/drawandyou/performance.webp` 후 `detail.result.evidence.src` | 없음 → 숨김 |
+| 띠링 앱 내부 화면 추가 캡처 (선택) | `public/images/ddiring/` 후 `projects[1].detail.gallery` | 시작 화면 1장 |
 | 에임 연습 프로그램 화면 (선택) | `sideProject`에 이미지 필드 추가 | 없음 → 텍스트 카드 |
 
 ## 배포

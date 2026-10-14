@@ -158,7 +158,15 @@
 
 .hero__visual {
   display: grid;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) minmax(88px, 0.3fr);
+  gap: 14px;
+  align-items: end;
+}
+
+@media (min-width: 960px) {
+  .hero__visual {
+    gap: 20px;
+  }
 }
 
 .hero__shot {
@@ -187,8 +195,8 @@
   margin-right: 4px;
 }
 
-.hero__shot--small {
-  max-width: 340px;
+.hero__shot--phone .shot {
+  border-radius: 14px;
 }
 
 /* ---------- Projects ---------- */
@@ -259,7 +267,7 @@
   color: var(--text-muted);
 }
 
-.project-card__media--wide .shot {
+.project-card__frame--wide .shot {
   padding: 8px;
 }
 
@@ -481,6 +489,7 @@
 
 .principle {
   display: grid;
+  align-content: start;
   grid-template-columns: 2rem 1fr;
   gap: 12px;
   padding-block: 20px;
@@ -897,5 +906,45 @@
 @media (min-width: 960px) {
   .project-card__impl {
     display: block;
+  }
+}
+
+/* 세로형 앱 화면: 원래 비율 그대로, 읽을 수 있는 크기로 가운데 배치 */
+.project-card__frame--portrait {
+  display: grid;
+  justify-items: center;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+
+.project-card__frame--portrait .figure {
+  width: min(190px, 60%);
+}
+
+.project-card__frame--portrait .shot,
+.detail-hero__media--portrait .shot {
+  border-radius: 16px;
+}
+
+.detail-hero__media--portrait {
+  max-width: 200px;
+}
+
+.result-links {
+  margin-top: 16px;
+}
+
+@media (min-width: 840px) {
+  .detail-hero--portrait .detail-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 48px;
+    align-items: start;
+  }
+  .detail-hero--portrait .detail-hero__media {
+    margin-top: 0;
+    max-width: none;
   }
 }

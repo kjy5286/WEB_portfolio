@@ -9,6 +9,8 @@ interface ProjectLinksProps {
 
 /** href가 있는 링크만 버튼으로 보여 줍니다. 빈 링크는 배포 화면에 노출하지 않습니다. */
 export function ProjectLinks({ links, slug }: ProjectLinksProps) {
+  // 결과물을 직접 보여 주는 링크 하나만 강조합니다: 서비스, 없으면 시연 영상
+  const primary = links.find((l) => l.kind === 'service' && l.href) ?? links.find((l) => l.kind === 'demo' && l.href)
   return (
     <div className="btn-row">
       {links.map((link) =>
@@ -16,7 +18,7 @@ export function ProjectLinks({ links, slug }: ProjectLinksProps) {
           <ExternalLink
             key={link.kind}
             href={link.href}
-            className={`btn ${link.kind === 'service' ? 'btn--primary' : 'btn--quiet'}`}
+            className={`btn ${link === primary ? 'btn--primary' : 'btn--quiet'}`}
           >
             {link.label}
             <span className="arrow" aria-hidden="true">

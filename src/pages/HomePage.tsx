@@ -56,8 +56,8 @@ export function HomePage() {
                 <strong>{lead.name}</strong> {lead.platform} · 직접 구현한 드로잉 화면
               </span>
             </Link>
-            <Link to={`/projects/${second.slug}`} className="hero__shot hero__shot--small" aria-label={`${second.name} 상세 보기`}>
-              <Figure media={second.hero} sizes="(min-width: 960px) 300px, 60vw" priority contain showCaption={false} />
+            <Link to={`/projects/${second.slug}`} className="hero__shot hero__shot--phone" aria-label={`${second.name} 상세 보기`}>
+              <Figure media={second.hero} sizes="(min-width: 960px) 170px, 28vw" priority showCaption={false} />
               <span className="hero__shot-label">
                 <strong>{second.name}</strong> {second.platform}
               </span>
