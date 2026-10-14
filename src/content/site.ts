@@ -27,6 +27,8 @@ export const profile: Profile = {
   name: '김현수',
   nameEn: 'Hyunsoo Kim',
   headline: '사용자의 불편을 발견하고, 작동하는 서비스로 바꾸는 개발자',
+  /** 제목 안에서 강조색으로 보여 줄 부분 */
+  headlineEmphasis: '작동하는 서비스',
   subline:
     'DRAW&YOU와 띠링에서 UI 설계부터 웹·앱 프론트엔드 개발, API 연동과 배포까지 담당했습니다.',
   highlights: [
