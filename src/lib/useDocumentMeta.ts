@@ -10,7 +10,7 @@ interface MetaInput {
 }
 
 function absolute(path: string) {
-  return siteMeta.url ? new URL(path, siteMeta.url).toString() : path
+  return new URL(path, siteMeta.url || window.location.origin).toString()
 }
 
 function setMeta(attr: 'name' | 'property', key: string, value: string) {

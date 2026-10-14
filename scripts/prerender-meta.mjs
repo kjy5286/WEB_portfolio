@@ -14,7 +14,11 @@ const { siteMeta, projects } = await import('../src/content/site.ts')
 const template = await readFile(join(dist, 'index.html'), 'utf8')
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-const abs = (path) => (siteMeta.url ? new URL(path, siteMeta.url).toString() : path)
+// 배포 주소: site.ts의 siteMeta.url → SITE_URL 환경 변수 → Vercel이 빌드 때 넣어 주는 프로덕션 도메인 순서
+const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL
+const siteUrl = siteMeta.url || process.env.SITE_URL || (vercelHost ? `https://${vercelHost}` : '')
+if (siteUrl) console.log(`site url: ${siteUrl}`)
+const abs = (path) => (siteUrl ? new URL(path, siteUrl).toString() : path)
 
 function render({ title, description, path, image, type }) {
   const metaContent = (attr, key, value) =>
@@ -33,7 +37,7 @@ function render({ title, description, path, image, type }) {
     metaContent('name', 'twitter:image', abs(image)),
   ]
   let html = steps.reduce((h, f) => f(h), template)
-  if (siteMeta.url) html = html.replace('</head>', `  <link rel="canonical" href="${esc(abs(path))}" />\n  </head>`)
+  if (siteUrl) html = html.replace('</head>', `  <link rel="canonical" href="${esc(abs(path))}" />\n  </head>`)
   return html
 }
 
@@ -61,7 +65,7 @@ for (const p of projects) {
 // 정적 호스팅(GitHub Pages 등)에서 알 수 없는 경로도 앱이 처리하도록 404.html을 둡니다.
 await writeFile(join(dist, '404.html'), template)
 
-if (siteMeta.url) {
+if (siteUrl) {
   const urls = ['/', ...projects.map((p) => `/projects/${p.slug}`)]
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
     .map((u) => `  <url><loc>${abs(u)}</loc></url>`)

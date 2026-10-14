@@ -11,7 +11,10 @@ import type { Principle, Profile, Project, SideProject, SiteMeta } from './types
 const DDIRING_DEMO = 'https://drive.google.com/file/d/1cYyqROnWaHZZO1uev67iBQqFZx5VSilf/view?usp=sharing'
 
 export const siteMeta: SiteMeta = {
-  /** 배포 주소. 공유 미리보기(og:image 등)의 절대 경로에 사용됩니다. 예: 'https://hyunsoo.dev' */
+  /**
+   * 배포 주소. 공유 미리보기(og:image 등)의 절대 경로에 사용됩니다. 예: 'https://hyunsoo.dev'
+   * 비워 두면 Vercel 빌드에서는 프로젝트의 프로덕션 도메인(*.vercel.app 또는 연결한 도메인)을 자동으로 씁니다.
+   */
   url: '',
   title: '김현수 — 사용자의 불편을 작동하는 서비스로 바꾸는 개발자',
   description:

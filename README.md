@@ -45,13 +45,20 @@ Node.js 22.18 이상이 필요합니다. (빌드 후 스크립트가 `src/conten
 
 | 자료 | 넣을 위치 | 현재 상태 |
 | --- | --- | --- |
-| 이 포트폴리오 사이트의 배포 주소 | `siteMeta.url` | 없음 → 공유 이미지가 상대 경로 |
 | 띠링 테스트용 APK 공개 링크 (선택) | `projects[1].links` 의 `apk` | 없음 → 버튼 숨김 |
 | DRAW&YOU 시연 영상 URL (선택) | `projects[0].links` 의 `demo` | 없음 → 버튼 숨김 |
 | DRAW&YOU 성능 측정 캡처 (Performance 탭·DevTools) | `public/images/drawandyou/performance.webp` 후 `detail.result.evidence.src` | 없음 → 숨김 |
 | 띠링 앱 내부 화면 추가 캡처 (선택) | `public/images/ddiring/` 후 `projects[1].detail.gallery` | 시작 화면 1장 |
 | 에임 연습 프로그램 화면 (선택) | `sideProject`에 이미지 필드 추가 | 없음 → 텍스트 카드 |
 
-## 배포
+## 배포 (Vercel 권장)
 
-정적 파일(`dist/`)만 있으면 됩니다. Vercel은 `vercel.json`이 포함되어 있어 그대로 배포됩니다. 다른 정적 호스팅도 `404.html`로 클라이언트 라우팅을 처리합니다.
+1. [vercel.com](https://vercel.com)에서 GitHub로 로그인 → **Add New → Project** → `web_portfolio` 저장소 선택
+2. 프로젝트 이름을 정합니다. 이름이 곧 주소가 됩니다. 예: `hyunsoo-kim` → `https://hyunsoo-kim.vercel.app`
+3. 설정은 그대로 두고 **Deploy** (Vite 자동 인식, `vercel.json` 포함)
+
+- 프로덕션 배포는 기본 브랜치(`main`) 기준입니다. PR을 머지하면 자동으로 다시 배포됩니다.
+- 공유 미리보기용 절대 주소는 Vercel이 빌드 때 넣어 주는 프로덕션 도메인을 자동으로 사용합니다. 직접 지정하려면 `siteMeta.url` 또는 `SITE_URL` 환경 변수를 쓰세요.
+- 나중에 개인 도메인을 사면 Vercel **Settings → Domains**에서 연결하면 됩니다.
+
+다른 정적 호스팅도 `dist/`만 올리면 되며, `404.html`로 클라이언트 라우팅을 처리합니다.
