@@ -16,8 +16,8 @@ const NAV = [
   { id: 'top', label: '처음' },
   { id: 'about', label: '주요 경험' },
   ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
-  { id: 'skills', label: '기술 스택' },
   { id: 'principles', label: '기준' },
+  { id: 'skills', label: '기술 스택' },
   { id: 'contact', label: '연락' },
 ]
 
@@ -115,43 +115,11 @@ export function HomePage() {
         ))}
       </section>
 
-      {/* 3. 기술 스택 */}
-      <section id="skills" className="section panel" aria-labelledby="skills-title">
-        <div className="container">
-          <SectionHead index="02" id="skills-title" title="기술 스택" lead="실제 프로젝트에서 사용한 기술입니다." />
-          <dl className="skills">
-            {skills.map((g, i) => (
-              <Reveal key={g.category} className="skills__row" delay={i}>
-                <dt className="skills__category">{g.category}</dt>
-                <dd className="skills__items">
-                  <ul>
-                    {g.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </dd>
-                <dd className="skills__used">
-                  <span className="sr-only">사용한 프로젝트: </span>
-                  {g.usedIn.map((slug) => {
-                    const project = projects.find((p) => p.slug === slug)
-                    return project ? (
-                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
-                        {project.name}
-                      </Link>
-                    ) : null
-                  })}
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* 4. 개발자로서의 기준 */}
+      {/* 3. 개발자로서의 기준 */}
       <section id="principles" className="section panel" aria-labelledby="principles-title">
         <div className="container">
           <SectionHead
-            index="03"
+            index="02"
             id="principles-title"
             title="개발자로서의 기준"
             lead="각 문장은 실제 프로젝트에서 한 일과 연결되어 있습니다."
@@ -180,6 +148,38 @@ export function HomePage() {
               )
             })}
           </ol>
+        </div>
+      </section>
+
+      {/* 4. 기술 스택 */}
+      <section id="skills" className="section panel" aria-labelledby="skills-title">
+        <div className="container">
+          <SectionHead index="03" id="skills-title" title="기술 스택" lead="실제 프로젝트에서 사용한 기술입니다." />
+          <dl className="skills">
+            {skills.map((g, i) => (
+              <Reveal key={g.category} className="skills__row" delay={i}>
+                <dt className="skills__category">{g.category}</dt>
+                <dd className="skills__items">
+                  <ul>
+                    {g.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </dd>
+                <dd className="skills__used">
+                  <span className="sr-only">사용한 프로젝트: </span>
+                  {g.usedIn.map((slug) => {
+                    const project = projects.find((p) => p.slug === slug)
+                    return project ? (
+                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
+                        {project.name}
+                      </Link>
+                    ) : null
+                  })}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
         </div>
       </section>
 
