@@ -1326,9 +1326,8 @@
 }
 
 @media (min-width: 1024px) and (min-height: 680px) {
-  /* 한 번 스크롤하면 한 섹션씩 이동. 화면보다 긴 섹션은 안에서 이어서 스크롤된 뒤 다음 섹션으로 넘어갑니다. */
+  /* 섹션 하나가 한 화면. 한 칸씩 이동은 src/lib/usePanelScroll.ts가 처리합니다. */
   html.snap {
-    scroll-snap-type: y mandatory;
     scroll-padding-top: 0;
   }
 
@@ -1339,8 +1338,6 @@
     min-height: 100vh;
     min-height: 100svh;
     padding-block: 44px;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 
   html.snap .panel > .container {
@@ -1355,10 +1352,6 @@
   html.snap .project-panel + .project-panel {
     margin-top: 0;
     border-top: 1px solid var(--line);
-  }
-
-  html.snap .site-footer {
-    scroll-snap-align: end;
   }
 
   /* 주요 경험: 한 화면을 채우는 큰 글씨 */
@@ -1410,5 +1403,99 @@
 
   html.snap #principles .principle__evidence {
     margin-top: 8px;
+  }
+}
+
+/* 높이가 낮은 화면(노트북 등)에서도 섹션 하나가 한 화면에 들어오도록 간격·크기 축소 */
+@media (min-width: 1024px) and (min-height: 680px) and (max-height: 880px) {
+  html.snap .panel {
+    padding-block: 28px;
+  }
+
+  html.snap .project-panel__label {
+    margin-bottom: 16px;
+  }
+
+  html.snap .project-card {
+    gap: 20px 44px;
+  }
+
+  html.snap .project-card__title {
+    margin-top: 8px;
+    font-size: clamp(2.25rem, 1rem + 2.8vw, 3.75rem);
+  }
+
+  html.snap .project-card__oneliner {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+
+  html.snap .project-card__body {
+    gap: 18px;
+  }
+
+  html.snap .project-card__facts {
+    gap: 14px;
+  }
+
+  html.snap .project-card__facts dd {
+    font-size: 1rem;
+  }
+
+  html.snap .task-list--compact {
+    gap: 6px;
+  }
+
+  html.snap .task-list--compact li {
+    padding: 3px 10px;
+    font-size: 0.8125rem;
+  }
+
+  html.snap .project-card__case {
+    padding: 18px 20px;
+  }
+
+  html.snap .project-card__hook {
+    margin-top: 10px;
+    font-size: 1.1875rem;
+  }
+
+  html.snap .project-card__case .case-summary {
+    margin-top: 14px;
+    padding-top: 12px;
+    gap: 8px;
+  }
+
+  html.snap .project-card__frame--portrait {
+    padding: 18px;
+  }
+
+  html.snap .project-card__frame--portrait .figure {
+    width: min(140px, 46%);
+  }
+
+  html.snap .btn {
+    min-height: 44px;
+    padding-block: 10px;
+  }
+
+  html.snap #principles .section-head {
+    margin-bottom: 20px;
+  }
+
+  html.snap #principles .section-head__title {
+    font-size: clamp(1.75rem, 1rem + 2.4vw, 3rem);
+  }
+
+  html.snap #principles .section-head__lead {
+    margin-top: 10px;
+  }
+
+  html.snap #principles .principle {
+    padding-block: 14px;
+  }
+
+  html.snap #principles .principle__text {
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 2.25rem);
   }
 }
