@@ -541,22 +541,29 @@
   }
 }
 
-.project-card__grid {
+.project-card {
   display: grid;
-  gap: 32px;
-  margin-top: 32px;
+  gap: 28px;
 }
 
 @media (min-width: 1024px) {
-  .project-card__grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 56px;
-    margin-top: 48px;
+  .project-card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'head body'
+      'media body';
+    gap: 32px 56px;
     align-items: start;
   }
+  .project-card__head {
+    grid-area: head;
+  }
   .project-card__media {
-    position: sticky;
-    top: 32px;
+    grid-area: media;
+  }
+  .project-card__body {
+    grid-area: body;
   }
 }
 
@@ -583,24 +590,12 @@
 }
 
 .project-card__frame--portrait .figure {
-  width: min(210px, 62%);
+  width: min(190px, 58%);
 }
 
 .project-card__frame--portrait .shot,
 .detail-hero__media--portrait .shot {
   border-radius: 16px;
-}
-
-.project-card__impl {
-  display: none;
-  margin-top: 24px;
-  font-size: 0.9375rem;
-}
-
-@media (min-width: 1024px) {
-  .project-card__impl {
-    display: block;
-  }
 }
 
 .project-card__body {
@@ -1296,4 +1291,124 @@
   font-size: var(--fs-section);
   font-weight: 900;
   letter-spacing: -0.05em;
+}
+
+/* ---------- 섹션 단위 스크롤 (홈, 넓은 화면) ---------- */
+
+.project-panel + .project-panel {
+  margin-top: 96px;
+}
+
+.section--projects {
+  padding-block: 72px;
+}
+
+.project-panel__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  margin-bottom: 28px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.project-panel__label .section-head__index {
+  margin-right: 12px;
+}
+
+.intro-strip__title {
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+@media (min-width: 1024px) and (min-height: 680px) {
+  /* 한 번 스크롤하면 한 섹션씩 이동. 화면보다 긴 섹션은 안에서 이어서 스크롤된 뒤 다음 섹션으로 넘어갑니다. */
+  html.snap {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+
+  html.snap .panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding-block: 44px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.snap .panel > .container {
+    width: 100%;
+  }
+
+  html.snap .section--projects {
+    padding-block: 0;
+    border-top: 0;
+  }
+
+  html.snap .project-panel + .project-panel {
+    margin-top: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  html.snap .site-footer {
+    scroll-snap-align: end;
+  }
+
+  /* 주요 경험: 한 화면을 채우는 큰 글씨 */
+  html.snap .intro-strip .hero__highlights {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  html.snap .intro-strip .hero__highlights li {
+    grid-template-columns: 4rem 1fr;
+    align-items: baseline;
+    padding-block: 28px;
+    border-top: 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  html.snap .intro-strip .hero__highlights strong {
+    font-size: clamp(1.75rem, 1rem + 2.2vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  html.snap .intro-strip .hero__highlights li > span:last-child {
+    grid-column: 2;
+    font-size: 1.0625rem;
+  }
+
+  html.snap .intro-strip .hero__highlight-num {
+    font-size: 1rem;
+  }
+
+  html.snap .project-card__frame--portrait .figure {
+    width: min(170px, 50%);
+  }
+
+  /* 기준 섹션이 한 화면에 들어오도록 간격 축소 */
+  html.snap #principles .section-head {
+    margin-bottom: 32px;
+  }
+
+  html.snap #principles .section-head__title {
+    font-size: clamp(2rem, 1rem + 3vw, 3.5rem);
+  }
+
+  html.snap #principles .principle {
+    padding-block: 20px;
+  }
+
+  html.snap #principles .principle__evidence {
+    margin-top: 8px;
+  }
 }

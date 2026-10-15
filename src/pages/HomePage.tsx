@@ -10,9 +10,12 @@ import { SectionHead } from '../components/SectionHead'
 import { SideNav } from '../components/SideNav'
 import { principles, profile, projects, sideProject, siteMeta } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
+import { usePanelScroll } from '../lib/usePanelScroll'
 
 const NAV = [
-  { id: 'projects', label: '프로젝트' },
+  { id: 'top', label: '처음' },
+  { id: 'about', label: '주요 경험' },
+  ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
   { id: 'side', label: '개인 제작' },
   { id: 'principles', label: '기준' },
   { id: 'contact', label: '연락' },
@@ -24,8 +27,12 @@ let introPlayed = false
 export function HomePage() {
   useDocumentMeta({ title: siteMeta.title, description: siteMeta.description, path: '/' })
   const [skipIntro] = useState(() => introPlayed)
+  usePanelScroll()
   useEffect(() => {
     introPlayed = true
+    // 홈에서만 섹션 단위 스크롤(넓은 화면, CSS에서 조건 처리)
+    document.documentElement.classList.add('snap')
+    return () => document.documentElement.classList.remove('snap')
   }, [])
 
   return (
@@ -33,7 +40,7 @@ export function HomePage() {
       <SideNav items={NAV} />
 
       {/* 1. 첫 화면: 문구 하나로 시작 */}
-      <section className={`hero${skipIntro ? ' hero--static' : ''}`} aria-labelledby="hero-title">
+      <section id="top" className={`hero panel${skipIntro ? ' hero--static' : ''}`} aria-labelledby="hero-title">
         <div className="container hero__inner">
           <h1 id="hero-title" tabIndex={-1} className="hero__headline">
             <IntroHeadline text={profile.headline} trouble={profile.headlineTrouble} ease={profile.headlineEase} />
@@ -70,8 +77,11 @@ export function HomePage() {
       </section>
 
       {/* 첫 화면 다음: 짧게 보여 줄 경험 */}
-      <section id="about" className="intro-strip" aria-label="주요 경험">
+      <section id="about" className="intro-strip panel" aria-labelledby="about-title">
         <div className="container">
+          <Reveal as="h2" id="about-title" className="intro-strip__title">
+            주요 경험
+          </Reveal>
           <ul className="hero__highlights">
             {profile.highlights.map((h, i) => (
               <Reveal as="li" key={h.label} delay={i}>
@@ -87,24 +97,26 @@ export function HomePage() {
       </section>
 
       {/* 2. 대표 프로젝트 */}
-      <section id="projects" className="section" aria-labelledby="projects-title">
-        <div className="container">
-          <SectionHead
-            index="01"
-            id="projects-title"
-            title="대표 프로젝트"
-            lead="두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다. 요약으로 핵심을, 상세 페이지에서 과정을 볼 수 있습니다."
-          />
-          <div className="project-list">
-            {projects.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} />
-            ))}
+      <section id="projects" className="section section--projects" aria-labelledby="projects-title">
+        <h2 id="projects-title" className="sr-only">
+          대표 프로젝트
+        </h2>
+        {projects.map((p, i) => (
+          <div key={p.slug} id={`project-${p.slug}`} className="panel project-panel">
+            <div className="container">
+              <Reveal as="p" className="project-panel__label">
+                <span className="section-head__index">01</span>
+                대표 프로젝트 {i + 1}/{projects.length}
+                {i === 0 && <span className="project-panel__note"> · 두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드 담당</span>}
+              </Reveal>
+              <ProjectCard project={p} index={i} />
+            </div>
           </div>
-        </div>
+        ))}
       </section>
 
       {/* 3. 개인 제작 경험 */}
-      <section id="side" className="section section--side" aria-labelledby="side-title">
+      <section id="side" className="section section--side panel" aria-labelledby="side-title">
         <div className="container">
           <SectionHead index="02" id="side-title" title="개인 제작" />
           <Reveal as="article" className="side-card">
@@ -123,7 +135,7 @@ export function HomePage() {
       </section>
 
       {/* 4. 개발자로서의 기준 */}
-      <section id="principles" className="section" aria-labelledby="principles-title">
+      <section id="principles" className="section panel" aria-labelledby="principles-title">
         <div className="container">
           <SectionHead
             index="03"
