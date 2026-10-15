@@ -4,6 +4,7 @@ import { CaseSummary } from '../components/CaseSummary'
 import { Figure } from '../components/Figure'
 import { ProjectLinks } from '../components/ProjectLinks'
 import { Reveal } from '../components/Reveal'
+import { SideNav } from '../components/SideNav'
 import { TaskList } from '../components/TaskList'
 import { projects } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
@@ -37,13 +38,27 @@ function ProjectDetail({ index }: { index: number }) {
   let n = 0
   const num = () => String(++n).padStart(2, '0')
 
+  const nav = [
+    { id: 'scope', label: '담당 범위' },
+    { id: 'problem', label: detail.problem.title },
+    { id: 'analysis', label: detail.analysis.title },
+    { id: 'actions', label: detail.actions.title },
+    { id: 'result', label: detail.result.title },
+    ...(detail.gallery.length > 0 ? [{ id: 'screens', label: '화면' }] : []),
+    { id: 'resources', label: '관련 자료' },
+  ]
+
   return (
     <article className="detail" aria-labelledby="detail-title">
+      <SideNav items={nav} />
       {/* 한 줄 설명과 실제 화면 */}
       <header className={`detail-hero${ratio < 1 ? ' detail-hero--portrait' : ''}`}>
         <div className="container detail-hero__grid">
           <div className="detail-hero__text">
             <Reveal as="nav" aria-label="이동 경로" className="breadcrumb">
+              <Link to="/" className="breadcrumb__home">
+                김현수
+              </Link>
               <Link to="/#projects">
                 <span aria-hidden="true">← </span>대표 프로젝트
               </Link>

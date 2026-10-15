@@ -1,52 +1,53 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ContactSection } from '../components/ContactSection'
 import { DevMissing } from '../components/DevMissing'
 import { ExternalLink } from '../components/ExternalLink'
-import { Figure } from '../components/Figure'
+import { IntroHeadline } from '../components/IntroHeadline'
 import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { SectionHead } from '../components/SectionHead'
+import { SideNav } from '../components/SideNav'
 import { principles, profile, projects, sideProject, siteMeta } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
 
-function Headline({ text, emphasis }: { text: string; emphasis?: string }) {
-  if (!emphasis || !text.includes(emphasis)) return <>{text}</>
-  const [before, after] = text.split(emphasis)
-  return (
-    <>
-      {before}
-      <em className="hero__em">{emphasis}</em>
-      {after}
-    </>
-  )
-}
+const NAV = [
+  { id: 'projects', label: '프로젝트' },
+  { id: 'side', label: '개인 제작' },
+  { id: 'principles', label: '기준' },
+  { id: 'contact', label: '연락' },
+]
+
+// 첫 방문 때만 등장 애니메이션을 재생합니다. 상세 페이지에서 돌아오면 바로 보여 줍니다.
+let introPlayed = false
 
 export function HomePage() {
   useDocumentMeta({ title: siteMeta.title, description: siteMeta.description, path: '/' })
-  const [lead, second] = projects
+  const [skipIntro] = useState(() => introPlayed)
+  useEffect(() => {
+    introPlayed = true
+  }, [])
 
   return (
     <>
-      {/* 1. 첫 화면 */}
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="container hero__grid">
-          <div className="hero__text">
-            <h1 id="hero-title" tabIndex={-1}>
-              <Reveal as="span" className="hero__name">
-                {profile.name}
-                <span className="hero__name-en" lang="en">
-                  {profile.nameEn}
-                </span>
-              </Reveal>
-              <Reveal as="span" delay={1} className="hero__headline">
-                <Headline text={profile.headline} emphasis={profile.headlineEmphasis} />
-              </Reveal>
-            </h1>
-            <Reveal as="p" delay={2} className="hero__subline">
-              {profile.subline}
-            </Reveal>
+      <SideNav items={NAV} />
 
-            <Reveal delay={3} className="btn-row hero__actions">
+      {/* 1. 첫 화면: 문구 하나로 시작 */}
+      <section className={`hero${skipIntro ? ' hero--static' : ''}`} aria-labelledby="hero-title">
+        <div className="container hero__inner">
+          <h1 id="hero-title" tabIndex={-1} className="hero__headline">
+            <IntroHeadline text={profile.headline} trouble={profile.headlineTrouble} ease={profile.headlineEase} />
+          </h1>
+
+          <div className="hero__after">
+            <p className="hero__name">
+              {profile.name}
+              <span className="hero__name-en" lang="en">
+                {profile.nameEn}
+              </span>
+            </p>
+            <p className="hero__subline">{profile.subline}</p>
+            <div className="btn-row hero__actions">
               <a href="#projects" className="btn btn--primary">
                 프로젝트와 문제 해결 보기
                 <span className="arrow arrow--down" aria-hidden="true">
@@ -60,29 +61,20 @@ export function HomePage() {
               ) : (
                 <DevMissing label="포트폴리오 PDF" where="site.ts → profile.links.portfolioPdf" />
               )}
-            </Reveal>
+            </div>
           </div>
-
-          <Reveal delay={2} className="hero__visual">
-            <Link to={`/projects/${lead.slug}`} className="hero__shot" aria-label={`${lead.name} 상세 보기`}>
-              <Figure media={lead.hero} sizes="(min-width: 1024px) 560px, 70vw" priority showCaption={false} />
-              <span className="hero__shot-label">
-                <strong>{lead.name}</strong> 웹 · 드로잉 캔버스
-              </span>
-            </Link>
-            <Link to={`/projects/${second.slug}`} className="hero__shot hero__shot--phone" aria-label={`${second.name} 상세 보기`}>
-              <Figure media={second.hero} sizes="(min-width: 1024px) 170px, 28vw" priority showCaption={false} />
-              <span className="hero__shot-label">
-                <strong>{second.name}</strong> 앱
-              </span>
-            </Link>
-          </Reveal>
         </div>
+        <a href="#about" className="hero__scroll" aria-label="아래로 이동">
+          <span className="hero__scroll-line" aria-hidden="true" />
+        </a>
+      </section>
 
+      {/* 첫 화면 다음: 짧게 보여 줄 경험 */}
+      <section id="about" className="intro-strip" aria-label="주요 경험">
         <div className="container">
-          <ul className="hero__highlights" aria-label="주요 경험">
+          <ul className="hero__highlights">
             {profile.highlights.map((h, i) => (
-              <Reveal as="li" key={h.label} delay={i + 3}>
+              <Reveal as="li" key={h.label} delay={i}>
                 <span className="hero__highlight-num" aria-hidden="true">
                   {String(i + 1).padStart(2, '0')}
                 </span>
@@ -112,7 +104,7 @@ export function HomePage() {
       </section>
 
       {/* 3. 개인 제작 경험 */}
-      <section className="section section--side" aria-labelledby="side-title">
+      <section id="side" className="section section--side" aria-labelledby="side-title">
         <div className="container">
           <SectionHead index="02" id="side-title" title="개인 제작" />
           <Reveal as="article" className="side-card">

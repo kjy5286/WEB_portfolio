@@ -26,7 +26,6 @@
   --gutter: 16px;
   --content: 1200px;
   --prose: 40rem;
-  --header-h: 60px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   color-scheme: dark;
@@ -47,7 +46,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: 24px;
   background: var(--bg);
 }
 
