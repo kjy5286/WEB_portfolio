@@ -6,7 +6,7 @@
  *   배포 빌드에서는 해당 영역이 숨겨집니다. replacePath 위치에 파일을 넣고 src를 채우면 됩니다.
  * - 성과 수치·사용자 수·수상 내역처럼 확인되지 않은 내용은 넣지 않습니다.
  */
-import type { Principle, Profile, Project, SideProject, SiteMeta } from './types'
+import type { Principle, Profile, Project, SiteMeta, SkillGroup } from './types'
 
 const DDIRING_DEMO = 'https://drive.google.com/file/d/1cYyqROnWaHZZO1uev67iBQqFZx5VSilf/view?usp=sharing'
 
@@ -300,18 +300,37 @@ export const projects: Project[] = [
   },
 ]
 
-export const sideProject: SideProject = {
-  title: '에임 연습 프로그램',
-  label: '개인 제작',
-  message: '오래 즐긴 게임의 작은 불편을, 직접 쓰는 도구로 바꿨습니다.',
-  points: [
-    '배틀그라운드를 얼리 액세스 시절부터 약 3,400시간 플레이',
-    '게임 시작 전 손을 풀고 에임을 연습하려고 Codex로 직접 제작',
-    '단순한 기능에서 시작해 세부 설정을 추가하는 방향으로 발전',
-    '반동 강도를 직접 조절할 수 있도록 구현',
-  ],
-  disclaimer: '개인 연습용으로 만든 도구이며, 배틀그라운드 공식 프로그램이 아닙니다.',
-}
+/**
+ * 기술 스택. 포트폴리오 PDF의 Skills 항목과 같고, 실제로 쓴 프로젝트를 함께 표시합니다.
+ * 숙련도(퍼센트·별점)는 표시하지 않습니다.
+ */
+export const skills: SkillGroup[] = [
+  {
+    category: 'Frontend',
+    items: ['React', 'TypeScript', 'JavaScript', 'Vite'],
+    usedIn: ['drawandyou', 'ddiring'],
+  },
+  {
+    category: 'API · Auth',
+    items: ['Axios', 'REST API', 'JWT', 'Secure Store'],
+    usedIn: ['drawandyou', 'ddiring'],
+  },
+  {
+    category: 'Mobile',
+    items: ['React Native', 'Expo', 'FCM', 'EAS Build'],
+    usedIn: ['ddiring'],
+  },
+  {
+    category: 'UI · UX',
+    items: ['Figma', 'User Flow', 'Responsive UI'],
+    usedIn: ['drawandyou', 'ddiring'],
+  },
+  {
+    category: 'Deploy',
+    items: ['Vercel', 'Git', 'Android Test Build'],
+    usedIn: ['drawandyou', 'ddiring'],
+  },
+]
 
 export const principles: Principle[] = [
   {

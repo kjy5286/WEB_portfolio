@@ -8,7 +8,7 @@ import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { SectionHead } from '../components/SectionHead'
 import { SideNav } from '../components/SideNav'
-import { principles, profile, projects, sideProject, siteMeta } from '../content/site'
+import { principles, profile, projects, siteMeta, skills } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
 import { usePanelScroll } from '../lib/usePanelScroll'
 
@@ -16,7 +16,7 @@ const NAV = [
   { id: 'top', label: '처음' },
   { id: 'about', label: '주요 경험' },
   ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
-  { id: 'side', label: '개인 제작' },
+  { id: 'skills', label: '기술 스택' },
   { id: 'principles', label: '기준' },
   { id: 'contact', label: '연락' },
 ]
@@ -115,22 +115,35 @@ export function HomePage() {
         ))}
       </section>
 
-      {/* 3. 개인 제작 경험 */}
-      <section id="side" className="section section--side panel" aria-labelledby="side-title">
+      {/* 3. 기술 스택 */}
+      <section id="skills" className="section panel" aria-labelledby="skills-title">
         <div className="container">
-          <SectionHead index="02" id="side-title" title="개인 제작" />
-          <Reveal as="article" className="side-card">
-            <div className="side-card__head">
-              <h3 className="side-card__title">{sideProject.title}</h3>
-              <p className="side-card__message">{sideProject.message}</p>
-            </div>
-            <ul className="side-card__points">
-              {sideProject.points.map((pt) => (
-                <li key={pt}>{pt}</li>
-              ))}
-            </ul>
-            <p className="side-card__note">{sideProject.disclaimer}</p>
-          </Reveal>
+          <SectionHead index="02" id="skills-title" title="기술 스택" lead="실제 프로젝트에서 사용한 기술입니다." />
+          <dl className="skills">
+            {skills.map((g, i) => (
+              <Reveal key={g.category} className="skills__row" delay={i}>
+                <dt className="skills__category">{g.category}</dt>
+                <dd className="skills__items">
+                  <ul>
+                    {g.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </dd>
+                <dd className="skills__used">
+                  <span className="sr-only">사용한 프로젝트: </span>
+                  {g.usedIn.map((slug) => {
+                    const project = projects.find((p) => p.slug === slug)
+                    return project ? (
+                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
+                        {project.name}
+                      </Link>
+                    ) : null
+                  })}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
         </div>
       </section>
 
