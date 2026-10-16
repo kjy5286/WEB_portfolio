@@ -55,8 +55,8 @@ export function HomePage() {
             </p>
             <p className="hero__subline">{profile.subline}</p>
             <div className="btn-row hero__actions">
-              <a href="#projects" className="btn btn--primary">
-                프로젝트와 문제 해결 보기
+              <a href="#about" className="btn btn--primary">
+                스크롤해서 자세히 보기
                 <span className="arrow arrow--down" aria-hidden="true">
                   ↓
                 </span>

@@ -172,24 +172,24 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 4px 12px;
-  font-size: 1.25rem;
+  gap: 4px 14px;
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .hero__name-en {
   font-family: var(--mono);
-  font-size: 0.8125rem;
+  font-size: clamp(0.875rem, 0.8rem + 0.3vw, 1.0625rem);
   font-weight: 500;
   letter-spacing: 0;
   color: var(--text-muted);
 }
 
 .hero__subline {
-  margin-top: 10px;
-  max-width: 34rem;
-  font-size: 1.0625rem;
+  margin-top: 12px;
+  max-width: 38rem;
+  font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
   color: var(--text-muted);
 }
 
