@@ -186,9 +186,23 @@
   color: var(--text-muted);
 }
 
+/* 넓은 화면에서만 지정한 위치에서 줄바꿈 (좁은 화면은 자연스럽게 이어짐) */
+.hero__subline-line + .hero__subline-line::before {
+  content: ' ';
+}
+
+@media (min-width: 640px) {
+  .hero__subline-line {
+    display: block;
+  }
+  .hero__subline-line + .hero__subline-line::before {
+    content: none;
+  }
+}
+
 .hero__subline {
   margin-top: 12px;
-  max-width: 38rem;
+  max-width: 40rem;
   font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
   color: var(--text-muted);
 }

@@ -32,8 +32,8 @@ export const profile: Profile = {
   headlineTrouble: '불편함',
   /** 부드럽게 등장하며 강조색으로 보여 줄 구절 */
   headlineEase: '더 쉬운 경험',
-  subline:
-    '프론트엔드를 넘어 AI와 백엔드·서버까지 학습하며, AI 시대에 맞는 풀스택 개발자로 성장하고 있습니다.',
+  /** 첫 화면 이름 아래 소개. \n 위치에서 줄을 바꿉니다. */
+  subline: '프론트엔드를 중심으로 AI와 백엔드 영역까지 학습하며,\n풀스택 개발자로 성장하고 있습니다.',
   highlights: [
     { label: '웹·모바일 서비스 개발', detail: 'React 웹 서비스와 React Native 앱' },
     { label: 'UI 설계부터 API 연동·배포까지', detail: 'Figma 설계 → 구현 → Vercel·APK 배포' },

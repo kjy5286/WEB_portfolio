@@ -53,7 +53,13 @@ export function HomePage() {
                 {profile.nameEn}
               </span>
             </p>
-            <p className="hero__subline">{profile.subline}</p>
+            <p className="hero__subline">
+              {profile.subline.split('\n').map((line, i) => (
+                <span key={i} className="hero__subline-line">
+                  {line}
+                </span>
+              ))}
+            </p>
             <div className="btn-row hero__actions">
               <a href="#about" className="btn btn--primary">
                 스크롤해서 자세히 보기
