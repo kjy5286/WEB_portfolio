@@ -84,12 +84,11 @@ export interface Project {
   meta: { title: string; description: string; ogImage: string }
 }
 
-export interface SideProject {
-  title: string
-  label: string
-  message: string
-  points: string[]
-  disclaimer: string
+export interface SkillGroup {
+  category: string
+  items: string[]
+  /** 이 기술을 실제로 사용한 프로젝트의 slug */
+  usedIn: string[]
 }
 
 export interface Principle {

@@ -7,7 +7,7 @@ import { Reveal } from './Reveal'
 /** 마지막 영역: GitHub·포트폴리오 PDF·(제공된 경우) 이메일 */
 export function ContactSection() {
   return (
-    <section id="contact" className="section section--contact" aria-labelledby="contact-title">
+    <section id="contact" className="section section--contact panel" aria-labelledby="contact-title">
       <div className="container contact">
         <Reveal as="p" className="section-head__index" aria-hidden="true">
           04

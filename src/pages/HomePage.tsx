@@ -8,13 +8,16 @@ import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { SectionHead } from '../components/SectionHead'
 import { SideNav } from '../components/SideNav'
-import { principles, profile, projects, sideProject, siteMeta } from '../content/site'
+import { principles, profile, projects, siteMeta, skills } from '../content/site'
 import { useDocumentMeta } from '../lib/useDocumentMeta'
+import { usePanelScroll } from '../lib/usePanelScroll'
 
 const NAV = [
-  { id: 'projects', label: '프로젝트' },
-  { id: 'side', label: '개인 제작' },
+  { id: 'top', label: '처음' },
   { id: 'principles', label: '기준' },
+  { id: 'skills', label: '기술 스택' },
+  { id: 'about', label: '주요 경험' },
+  ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
   { id: 'contact', label: '연락' },
 ]
 
@@ -24,8 +27,12 @@ let introPlayed = false
 export function HomePage() {
   useDocumentMeta({ title: siteMeta.title, description: siteMeta.description, path: '/' })
   const [skipIntro] = useState(() => introPlayed)
+  usePanelScroll()
   useEffect(() => {
     introPlayed = true
+    // 홈에서만 섹션 단위 스크롤(넓은 화면, CSS에서 조건 처리)
+    document.documentElement.classList.add('snap')
+    return () => document.documentElement.classList.remove('snap')
   }, [])
 
   return (
@@ -33,7 +40,7 @@ export function HomePage() {
       <SideNav items={NAV} />
 
       {/* 1. 첫 화면: 문구 하나로 시작 */}
-      <section className={`hero${skipIntro ? ' hero--static' : ''}`} aria-labelledby="hero-title">
+      <section id="top" className={`hero panel${skipIntro ? ' hero--static' : ''}`} aria-labelledby="hero-title">
         <div className="container hero__inner">
           <h1 id="hero-title" tabIndex={-1} className="hero__headline">
             <IntroHeadline text={profile.headline} trouble={profile.headlineTrouble} ease={profile.headlineEase} />
@@ -46,10 +53,16 @@ export function HomePage() {
                 {profile.nameEn}
               </span>
             </p>
-            <p className="hero__subline">{profile.subline}</p>
+            <p className="hero__subline">
+              {profile.subline.split('\n').map((line, i) => (
+                <span key={i} className="hero__subline-line">
+                  {line}
+                </span>
+              ))}
+            </p>
             <div className="btn-row hero__actions">
-              <a href="#projects" className="btn btn--primary">
-                프로젝트와 문제 해결 보기
+              <a href="#principles" className="btn btn--primary">
+                스크롤해서 자세히 보기
                 <span className="arrow arrow--down" aria-hidden="true">
                   ↓
                 </span>
@@ -64,69 +77,16 @@ export function HomePage() {
             </div>
           </div>
         </div>
-        <a href="#about" className="hero__scroll" aria-label="아래로 이동">
+        <a href="#principles" className="hero__scroll" aria-label="아래로 이동">
           <span className="hero__scroll-line" aria-hidden="true" />
         </a>
       </section>
 
-      {/* 첫 화면 다음: 짧게 보여 줄 경험 */}
-      <section id="about" className="intro-strip" aria-label="주요 경험">
-        <div className="container">
-          <ul className="hero__highlights">
-            {profile.highlights.map((h, i) => (
-              <Reveal as="li" key={h.label} delay={i}>
-                <span className="hero__highlight-num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <strong>{h.label}</strong>
-                <span>{h.detail}</span>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 2. 대표 프로젝트 */}
-      <section id="projects" className="section" aria-labelledby="projects-title">
+      {/* 2. 개발자로서의 기준 */}
+      <section id="principles" className="section panel" aria-labelledby="principles-title">
         <div className="container">
           <SectionHead
             index="01"
-            id="projects-title"
-            title="대표 프로젝트"
-            lead="두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다. 요약으로 핵심을, 상세 페이지에서 과정을 볼 수 있습니다."
-          />
-          <div className="project-list">
-            {projects.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. 개인 제작 경험 */}
-      <section id="side" className="section section--side" aria-labelledby="side-title">
-        <div className="container">
-          <SectionHead index="02" id="side-title" title="개인 제작" />
-          <Reveal as="article" className="side-card">
-            <div className="side-card__head">
-              <h3 className="side-card__title">{sideProject.title}</h3>
-              <p className="side-card__message">{sideProject.message}</p>
-            </div>
-            <ul className="side-card__points">
-              {sideProject.points.map((pt) => (
-                <li key={pt}>{pt}</li>
-              ))}
-            </ul>
-            <p className="side-card__note">{sideProject.disclaimer}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 4. 개발자로서의 기준 */}
-      <section id="principles" className="section" aria-labelledby="principles-title">
-        <div className="container">
-          <SectionHead
-            index="03"
             id="principles-title"
             title="개발자로서의 기준"
             lead="각 문장은 실제 프로젝트에서 한 일과 연결되어 있습니다."
@@ -158,7 +118,78 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 5. 마지막 영역 */}
+      {/* 3. 기술 스택 */}
+      <section id="skills" className="section panel" aria-labelledby="skills-title">
+        <div className="container">
+          <SectionHead index="02" id="skills-title" title="기술 스택" lead="실제 프로젝트에서 사용한 기술입니다." />
+          <dl className="skills">
+            {skills.map((g, i) => (
+              <Reveal key={g.category} className="skills__row" delay={i}>
+                <dt className="skills__category">{g.category}</dt>
+                <dd className="skills__items">
+                  <ul>
+                    {g.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </dd>
+                <dd className="skills__used">
+                  <span className="sr-only">사용한 프로젝트: </span>
+                  {g.usedIn.map((slug) => {
+                    const project = projects.find((p) => p.slug === slug)
+                    return project ? (
+                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
+                        {project.name}
+                      </Link>
+                    ) : null
+                  })}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* 4. 주요 경험 */}
+      <section id="about" className="intro-strip panel" aria-labelledby="about-title">
+        <div className="container">
+          <Reveal as="h2" id="about-title" className="intro-strip__title">
+            주요 경험
+          </Reveal>
+          <ul className="hero__highlights">
+            {profile.highlights.map((h, i) => (
+              <Reveal as="li" key={h.label} delay={i}>
+                <span className="hero__highlight-num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <strong>{h.label}</strong>
+                <span>{h.detail}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 5. 대표 프로젝트 */}
+      <section id="projects" className="section section--projects" aria-labelledby="projects-title">
+        <h2 id="projects-title" className="sr-only">
+          대표 프로젝트
+        </h2>
+        {projects.map((p, i) => (
+          <div key={p.slug} id={`project-${p.slug}`} className="panel project-panel">
+            <div className="container">
+              <Reveal as="p" className="project-panel__label">
+                <span className="section-head__index">03</span>
+                대표 프로젝트 {i + 1}/{projects.length}
+                {i === 0 && <span className="project-panel__note"> · 두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드 담당</span>}
+              </Reveal>
+              <ProjectCard project={p} index={i} />
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* 6. 마지막 영역 */}
       <ContactSection />
     </>
   )
