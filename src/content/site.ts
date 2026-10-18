@@ -34,11 +34,6 @@ export const profile: Profile = {
   headlineEase: '더 쉬운 경험',
   /** 첫 화면 이름 아래 소개. \n 위치에서 줄을 바꿉니다. */
   subline: '프론트엔드를 중심으로 AI와 백엔드 영역까지 학습하며,\n풀스택 개발자로 성장하고 있습니다.',
-  highlights: [
-    { label: '웹·모바일 서비스 개발', detail: 'React 웹 서비스와 React Native 앱' },
-    { label: 'UI 설계부터 API 연동·배포까지', detail: 'Figma 설계 → 구현 → Vercel·APK 배포' },
-    { label: 'AI를 활용한 원인 분석과 직접 검증', detail: '원인 후보는 AI와 좁히고, 확인은 도구로' },
-  ],
   links: {
     github: 'https://github.com/kjy5286',
     /** public/files/ 아래의 PDF. 공개용 사본이라 전화번호는 지워 두었습니다. */
@@ -327,22 +322,29 @@ export const skills: SkillGroup[] = [
   },
 ]
 
+/**
+ * 개발자로서의 가치관. 각 문장에 관련 경험을 함께 보여 주고, 링크로 실제 과정(상세 페이지)을 연결합니다.
+ * 근거 문장에는 프로젝트 이름을 쓰지 않습니다.
+ */
 export const principles: Principle[] = [
   {
     text: '사용자에게 필요한 기능부터 생각합니다.',
-    evidence: '띠링에서는 보호자와 어르신이 하는 일이 달라, 역할별로 화면과 흐름을 나눠 설계했습니다.',
+    experience: '웹·모바일 서비스 개발',
+    evidence: '웹과 모바일 서비스를 만들며, 사용자 역할마다 하는 일이 달라 역할별로 화면과 흐름을 나눠 설계했습니다.',
     projectSlug: 'ddiring',
     anchor: 'scope',
   },
   {
     text: 'AI의 제안은 직접 확인하고 적용합니다.',
-    evidence: 'DRAW&YOU 캔버스 문제의 원인 후보는 ChatGPT와 좁히고, 적용 여부는 DevTools와 Performance 탭으로 확인했습니다.',
+    experience: 'AI를 활용한 원인 분석과 직접 검증',
+    evidence: '성능 문제의 원인 후보는 AI와 함께 좁히고, 적용 여부는 DevTools와 Performance 탭으로 직접 확인했습니다.',
     projectSlug: 'drawandyou',
     anchor: 'analysis',
   },
   {
     text: '다른 관점을 반영해 더 나은 구현 방향을 찾습니다.',
-    evidence: '띠링에서 제가 제안한 가족 목소리 TTS에 대한 악용 우려를 받아들여, 음성 안내만 남기도록 조정했습니다.',
+    experience: 'UI 설계부터 API 연동·배포까지',
+    evidence: '설계부터 배포까지 맡으며 팀의 의견을 함께 검토했고, 악용 우려가 나온 기능은 범위를 다시 정했습니다.',
     projectSlug: 'ddiring',
     anchor: 'analysis',
   },

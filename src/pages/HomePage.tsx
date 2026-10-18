@@ -13,10 +13,9 @@ import { useDocumentMeta } from '../lib/useDocumentMeta'
 import { usePanelScroll } from '../lib/usePanelScroll'
 
 const NAV = [
-  { id: 'top', label: '처음' },
-  { id: 'principles', label: '기준' },
+  { id: 'top', label: '소개' },
+  { id: 'principles', label: '가치관' },
   { id: 'skills', label: '기술 스택' },
-  { id: 'about', label: '주요 경험' },
   ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
   { id: 'contact', label: '연락' },
 ]
@@ -82,38 +81,37 @@ export function HomePage() {
         </a>
       </section>
 
-      {/* 2. 개발자로서의 기준 */}
+      {/* 2. 개발자로서의 가치관 (주요 경험 포함) */}
       <section id="principles" className="section panel" aria-labelledby="principles-title">
         <div className="container">
           <SectionHead
             index="01"
             id="principles-title"
-            title="개발자로서의 기준"
-            lead="각 문장은 실제 프로젝트에서 한 일과 연결되어 있습니다."
+            title="개발자로서의 가치관"
+            lead="실제로 일하며 지켜 온 세 가지와, 그와 연결된 경험입니다."
           />
           <ol className="principles">
-            {principles.map((pr, i) => {
-              const project = projects.find((p) => p.slug === pr.projectSlug)
-              return (
-                <Reveal as="li" key={pr.text} className="principle">
-                  <span className="principle__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
+            {principles.map((pr, i) => (
+              <Reveal as="li" key={pr.text} className="principle">
+                <span className="principle__num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="principle__body">
+                  <p className="principle__experience">
+                    <span className="sr-only">관련 경험: </span>
+                    {pr.experience}
+                  </p>
+                  <h3 className="principle__text">{pr.text}</h3>
+                  <p className="principle__evidence">{pr.evidence}</p>
+                </div>
+                <Link to={`/projects/${pr.projectSlug}#${pr.anchor}`} className="text-link principle__link">
+                  관련 과정 보기
+                  <span className="arrow arrow--gap" aria-hidden="true">
+                    →
                   </span>
-                  <div className="principle__body">
-                    <h3 className="principle__text">{pr.text}</h3>
-                    <p className="principle__evidence">{pr.evidence}</p>
-                    {project && (
-                      <Link to={`/projects/${pr.projectSlug}#${pr.anchor}`} className="text-link">
-                        {project.name}에서 확인하기
-                        <span className="arrow arrow--gap" aria-hidden="true">
-                          →
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </Reveal>
-              )
-            })}
+                </Link>
+              </Reveal>
+            ))}
           </ol>
         </div>
       </section>
@@ -139,27 +137,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 4. 주요 경험 */}
-      <section id="about" className="intro-strip panel" aria-labelledby="about-title">
-        <div className="container">
-          <Reveal as="h2" id="about-title" className="intro-strip__title">
-            주요 경험
-          </Reveal>
-          <ul className="hero__highlights">
-            {profile.highlights.map((h, i) => (
-              <Reveal as="li" key={h.label} delay={i}>
-                <span className="hero__highlight-num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <strong>{h.label}</strong>
-                <span>{h.detail}</span>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 5. 대표 프로젝트 */}
+      {/* 4. 대표 프로젝트 */}
       <section id="projects" className="section section--projects" aria-labelledby="projects-title">
         <h2 id="projects-title" className="sr-only">
           대표 프로젝트
@@ -178,7 +156,7 @@ export function HomePage() {
         ))}
       </section>
 
-      {/* 6. 마지막 영역 */}
+      {/* 5. 마지막 영역 */}
       <ContactSection />
     </>
   )
