@@ -228,6 +228,13 @@ export const projects: Project[] = [
       action: '가족 목소리 TTS를 제안한 뒤, 팀에서 제기된 악용 가능성을 함께 검토해 기능 범위를 다시 정했습니다.',
       result: '음성 안내 기능은 유지하고, 실제 가족 목소리를 재현하는 방식은 제외했습니다.',
     },
+    thumbnail: {
+      src: '/images/ddiring/card-1600.webp',
+      srcSet: '/images/ddiring/card-800.webp 800w, /images/ddiring/card-1600.webp 1600w',
+      width: 1600,
+      height: 1000,
+      alt: '띠링 로고. 웃는 주황색 종 캐릭터와 “띠링 — 어르신 안부 확인 앱” 문구.',
+    },
     hero: {
       src: '/images/ddiring/start-720.webp',
       srcSet: '/images/ddiring/start-360.webp 360w, /images/ddiring/start-720.webp 720w',

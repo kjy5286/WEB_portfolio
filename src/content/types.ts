@@ -66,6 +66,8 @@ export interface Project {
   hook: string
   summary: { problem: string; action: string; result: string }
   hero: Media
+  /** 홈 카드 전용 이미지 (16:10, 권장 1600×1000). 없으면 hero를 씁니다. */
+  thumbnail?: Media
   detail: {
     problem: { title: string; body: string[] }
     analysis: { title: string; intro: string; points: CasePoint[] }

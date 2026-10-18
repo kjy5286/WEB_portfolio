@@ -11,13 +11,14 @@ interface ProjectCardProps {
  * 카드 전체를 누르면 상세 페이지로 이동합니다.
  */
 export function ProjectCard({ project }: ProjectCardProps) {
-  const portrait = project.hero.width / project.hero.height < 1
+  const media = project.thumbnail ?? project.hero
+  const portrait = media.width / media.height < 1
 
   return (
     <Link to={`/projects/${project.slug}`} className="project-card">
       <div className={`project-card__thumb${portrait ? ' project-card__thumb--portrait' : ''}`}>
         <Figure
-          media={{ ...project.hero, caption: undefined }}
+          media={{ ...media, caption: undefined }}
           sizes={portrait ? '200px' : '(min-width: 1024px) 560px, 100vw'}
           showCaption={false}
         />
