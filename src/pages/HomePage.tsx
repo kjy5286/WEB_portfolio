@@ -144,7 +144,13 @@ export function HomePage() {
             index="03"
             id="projects-title"
             title="대표 프로젝트"
-            lead="두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다. 카드를 누르면 문제 해결 과정을 볼 수 있습니다."
+            lead={
+              <>
+                두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다.
+                <br />
+                카드를 누르면 문제 해결 과정을 볼 수 있습니다.
+              </>
+            }
           />
           <ul className="project-grid">
             {projects.map((p, i) => (
