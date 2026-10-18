@@ -789,13 +789,39 @@
 .skills__items ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
+  gap: 10px;
 }
 
+/* 기술 하나하나를 둥근 상자에 담고, 마우스를 올리면 살짝 커지며 강조 */
 .skills__items li {
-  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
-  font-weight: 750;
-  letter-spacing: -0.03em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  cursor: default;
+  transition:
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    background-color 220ms var(--ease),
+    color 220ms var(--ease),
+    box-shadow 220ms var(--ease);
+}
+
+/* 마우스가 있는 기기에서만 (터치 기기에서 눌린 상태로 남지 않게) */
+@media (hover: hover) {
+  .skills__items li:hover {
+    transform: translateY(-2px) scale(1.08);
+    border-color: var(--accent);
+    background: var(--surface-2);
+    color: var(--accent);
+    box-shadow: 0 10px 24px -12px rgb(215 255 63 / 0.35);
+  }
 }
 
 .skills__used {
@@ -1528,6 +1554,11 @@
   }
 
   html.snap .skills__row {
-    padding-block: 16px;
+    padding-block: 14px;
+  }
+
+  html.snap .skills__items li {
+    min-height: 42px;
+    padding: 6px 15px;
   }
 }
