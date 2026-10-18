@@ -301,34 +301,29 @@ export const projects: Project[] = [
 ]
 
 /**
- * 기술 스택. 포트폴리오 PDF의 Skills 항목과 같고, 실제로 쓴 프로젝트를 함께 표시합니다.
+ * 기술 스택. 포트폴리오 PDF의 Skills 항목과 같습니다.
  * 숙련도(퍼센트·별점)는 표시하지 않습니다.
  */
 export const skills: SkillGroup[] = [
   {
     category: 'Frontend',
     items: ['React', 'TypeScript', 'JavaScript', 'Vite'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'API · Auth',
     items: ['Axios', 'REST API', 'JWT', 'Secure Store'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'Mobile',
     items: ['React Native', 'Expo', 'FCM', 'EAS Build'],
-    usedIn: ['ddiring'],
   },
   {
     category: 'UI · UX',
     items: ['Figma', 'User Flow', 'Responsive UI'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'Deploy',
     items: ['Vercel', 'Git', 'Android Test Build'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
 ]
 

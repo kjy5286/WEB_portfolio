@@ -87,8 +87,6 @@ export interface Project {
 export interface SkillGroup {
   category: string
   items: string[]
-  /** 이 기술을 실제로 사용한 프로젝트의 slug */
-  usedIn: string[]
 }
 
 export interface Principle {

@@ -773,7 +773,7 @@
 
 @media (min-width: 840px) {
   .skills__row {
-    grid-template-columns: 11rem minmax(0, 1fr) auto;
+    grid-template-columns: 11rem minmax(0, 1fr);
     align-items: center;
     padding-block: 24px;
   }
@@ -822,33 +822,6 @@
     color: var(--accent);
     box-shadow: 0 10px 24px -12px rgb(215 255 63 / 0.35);
   }
-}
-
-.skills__used {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.skills__project {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 2px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
-  transition:
-    color 200ms var(--ease),
-    border-color 200ms var(--ease);
-}
-
-.skills__project:hover {
-  color: var(--accent);
-  border-color: var(--accent);
 }
 
 /* ---------- Principles ---------- */

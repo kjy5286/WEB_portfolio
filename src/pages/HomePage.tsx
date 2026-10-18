@@ -133,17 +133,6 @@ export function HomePage() {
                     ))}
                   </ul>
                 </dd>
-                <dd className="skills__used">
-                  <span className="sr-only">사용한 프로젝트: </span>
-                  {g.usedIn.map((slug) => {
-                    const project = projects.find((p) => p.slug === slug)
-                    return project ? (
-                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
-                        {project.name}
-                      </Link>
-                    ) : null
-                  })}
-                </dd>
               </Reveal>
             ))}
           </dl>
