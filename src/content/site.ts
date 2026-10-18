@@ -74,6 +74,13 @@ export const projects: Project[] = [
         'React 상태 흐름과 Konva 렌더링 구조를 단계별로 나눠 원인을 분석하고, 재렌더링 범위·레이어 분리·메모이제이션 위치를 점검했습니다.',
       result: '캔버스 반응 속도를 개선하고, React DevTools와 Performance 탭으로 변화를 확인했습니다.',
     },
+    thumbnail: {
+      src: '/images/drawandyou/card-1600.webp',
+      srcSet: '/images/drawandyou/card-800.webp 800w, /images/drawandyou/card-1600.webp 1600w',
+      width: 1600,
+      height: 1000,
+      alt: 'DRAW&YOU 로고. 파란 꽃잎 모양 심볼과 “DRAW and YOU” 글자.',
+    },
     hero: {
       src: '/images/drawandyou/canvas-1600.webp',
       srcSet: '/images/drawandyou/canvas-800.webp 800w, /images/drawandyou/canvas-1600.webp 1600w',
