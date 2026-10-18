@@ -50,6 +50,7 @@ export const projects: Project[] = [
     name: 'DRAW&YOU',
     platform: '웹 서비스',
     period: '2025.07 – 2025.12',
+    stack: 'React · Vite · react-konva',
     oneLiner: '그림과 일기를 입력하면 AI 감정 분석 결과와 치유 콘텐츠를 확인할 수 있는 웹 서비스',
     audience: '그림과 일기로 감정을 기록하고, AI 감정 분석 결과와 치유 콘텐츠를 확인하려는 사용자',
     team: {
@@ -197,6 +198,7 @@ export const projects: Project[] = [
     name: '띠링',
     platform: '모바일 앱 (Android)',
     period: '2026.02 – 2026.06',
+    stack: 'React Native · TypeScript',
     oneLiner: '어르신과 보호자를 연결하는 AI 일상 돌봄 모바일 앱',
     audience: '어르신의 안부와 일상을 확인하려는 보호자, 그리고 간단한 흐름으로 안부 확인과 설문에 응답하는 어르신',
     team: {

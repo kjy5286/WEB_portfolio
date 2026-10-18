@@ -16,7 +16,7 @@ const NAV = [
   { id: 'top', label: '소개' },
   { id: 'principles', label: '가치관' },
   { id: 'skills', label: '기술 스택' },
-  ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
+  { id: 'projects', label: '프로젝트' },
   { id: 'contact', label: '연락' },
 ]
 
@@ -137,23 +137,23 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 4. 대표 프로젝트 */}
-      <section id="projects" className="section section--projects" aria-labelledby="projects-title">
-        <h2 id="projects-title" className="sr-only">
-          대표 프로젝트
-        </h2>
-        {projects.map((p, i) => (
-          <div key={p.slug} id={`project-${p.slug}`} className="panel project-panel">
-            <div className="container">
-              <Reveal as="p" className="project-panel__label">
-                <span className="section-head__index">03</span>
-                대표 프로젝트 {i + 1}/{projects.length}
-                {i === 0 && <span className="project-panel__note"> · 두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드 담당</span>}
+      {/* 4. 대표 프로젝트: 카드 두 개를 한 화면에 */}
+      <section id="projects" className="section panel" aria-labelledby="projects-title">
+        <div className="container">
+          <SectionHead
+            index="03"
+            id="projects-title"
+            title="대표 프로젝트"
+            lead="두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다. 카드를 누르면 문제 해결 과정을 볼 수 있습니다."
+          />
+          <ul className="project-grid">
+            {projects.map((p, i) => (
+              <Reveal as="li" key={p.slug} delay={i}>
+                <ProjectCard project={p} />
               </Reveal>
-              <ProjectCard project={p} index={i} />
-            </div>
-          </div>
-        ))}
+            ))}
+          </ul>
+        </div>
       </section>
 
       {/* 5. 마지막 영역 */}

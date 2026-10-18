@@ -54,6 +54,8 @@ export interface Project {
   platform: string
   /** 진행 기간. 예: '2025.07 – 2025.12' */
   period: string
+  /** 카드에 짧게 보여 줄 주요 기술 */
+  stack: string
   oneLiner: string
   audience: string
   team: { members: string[]; note: string }

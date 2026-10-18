@@ -443,17 +443,100 @@
   color: var(--text-muted);
 }
 
-/* ---------- Projects ---------- */
+/* ---------- Projects: 카드 ---------- */
 
-.project-list {
+.project-grid {
   display: grid;
-  gap: 96px;
+  gap: 32px;
 }
 
-@media (min-width: 1024px) {
-  .project-list {
-    gap: 144px;
+@media (min-width: 720px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
+}
+
+.project-card {
+  display: grid;
+  gap: 18px;
+  text-decoration: none;
+}
+
+.project-card__thumb {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition:
+    border-color 250ms var(--ease),
+    transform 250ms var(--ease),
+    box-shadow 250ms var(--ease);
+}
+
+/* 가로 화면: 꽉 채워 위쪽부터 보여 줌 */
+.project-card__thumb .figure,
+.project-card__thumb .shot {
+  height: 100%;
+}
+
+.project-card__thumb .shot {
+  border: 0;
+  border-radius: 0;
+}
+
+.project-card__thumb .shot img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* 세로 앱 화면: 원래 비율로 가운데 */
+.project-card__thumb--portrait {
+  position: relative;
+}
+
+.project-card__thumb--portrait .figure {
+  position: absolute;
+  top: 7%;
+  bottom: 7%;
+  left: 50%;
+  height: auto;
+  aspect-ratio: 360 / 800;
+  transform: translateX(-50%);
+}
+
+.project-card__thumb--portrait .shot {
+  border-radius: 14px;
+}
+
+.project-card__thumb--portrait .shot img {
+  object-fit: contain;
+}
+
+.project-card__info {
+  display: grid;
+  gap: 6px;
+}
+
+.project-card__title {
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  transition: color 200ms var(--ease);
+}
+
+.project-card__stack {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.project-card__oneliner {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }
 
 .project-card__meta {
@@ -461,150 +544,42 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 10px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.project-card__num {
-  margin-right: 6px;
-  font-family: var(--mono);
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-weight: 700;
-}
-
-.project-card__title {
-  margin-top: 14px;
-  font-size: var(--fs-project);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.055em;
-}
-
-.project-card__oneliner {
-  margin-top: 16px;
-  max-width: 36rem;
-  font-size: 1.0625rem;
-  color: var(--text-muted);
-}
-
-@media (min-width: 1024px) {
-  .project-card__oneliner {
-    font-size: 1.1875rem;
-  }
-}
-
-.project-card {
-  display: grid;
-  gap: 28px;
-}
-
-@media (min-width: 1024px) {
-  .project-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'head body'
-      'media body';
-    gap: 32px 56px;
-    align-items: start;
-  }
-  .project-card__head {
-    grid-area: head;
-  }
-  .project-card__media {
-    grid-area: media;
-  }
-  .project-card__body {
-    grid-area: body;
-  }
-}
-
-.project-card__frame {
-  display: block;
-  border-radius: var(--radius);
-}
-
-.project-card__frame:hover img {
-  transform: scale(1.03);
-}
-
-.project-card__frame--wide .shot {
-  padding: 8px;
-}
-
-/* 세로형 앱 화면: 원래 비율 그대로, 읽을 수 있는 크기로 가운데 배치 */
-.project-card__frame--portrait {
-  display: grid;
-  justify-items: center;
-  padding: 28px 20px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-}
-
-.project-card__frame--portrait .figure {
-  width: min(190px, 58%);
-}
-
-.project-card__frame--portrait .shot,
-.detail-hero__media--portrait .shot {
-  border-radius: 16px;
-}
-
-.project-card__body {
-  display: grid;
-  gap: 28px;
-  align-content: start;
-}
-
-.project-card__facts {
-  display: grid;
-  gap: 24px;
-}
-
-.project-card__facts dd {
-  font-size: 1.0625rem;
-}
-
-.project-card__team {
-  display: block;
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
-.project-card__case {
-  padding: 24px;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--line);
-}
-
-.project-card__case-type {
-  display: inline-block;
-  padding: 2px 10px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  font-size: 0.75rem;
+.project-card__more {
+  margin-left: auto;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--accent);
 }
 
-.project-card__hook {
-  margin-top: 14px;
-  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem);
-  font-weight: 800;
-  line-height: 1.38;
-  letter-spacing: -0.035em;
+.project-card__more .arrow {
+  margin-left: 6px;
 }
 
-.project-card__case .case-summary {
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
+@media (hover: hover) {
+  .project-card:hover .project-card__thumb {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 18px 40px -24px rgb(215 255 63 / 0.4);
+  }
+  .project-card:hover .shot img {
+    transform: scale(1.04);
+  }
+  .project-card:hover .project-card__title {
+    color: var(--accent);
+  }
+}
+
+.project-card:focus-visible {
+  outline-offset: 6px;
+}
+
+.detail-hero__media--portrait .shot {
+  border-radius: 16px;
 }
 
 /* ---------- Task list ---------- */
@@ -1290,29 +1265,6 @@
 
 /* ---------- 섹션 단위 스크롤 (홈, 넓은 화면) ---------- */
 
-.project-panel + .project-panel {
-  margin-top: 96px;
-}
-
-.section--projects {
-  padding-block: 72px;
-}
-
-.project-panel__label {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 0;
-  margin-bottom: 28px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.project-panel__label .section-head__index {
-  margin-right: 12px;
-}
-
 @media (min-width: 1024px) and (min-height: 680px) {
   /* 섹션 하나가 한 화면. 한 칸씩 이동은 src/lib/usePanelScroll.ts가 처리합니다. */
   html.snap {
@@ -1332,19 +1284,8 @@
     width: 100%;
   }
 
-  html.snap .section--projects {
-    padding-block: 0;
-    border-top: 0;
-  }
 
-  html.snap .project-panel + .project-panel {
-    margin-top: 0;
-    border-top: 1px solid var(--line);
-  }
 
-  html.snap .project-card__frame--portrait .figure {
-    width: min(170px, 50%);
-  }
 
   /* 기준 섹션이 한 화면에 들어오도록 간격 축소 */
   html.snap #principles .section-head {
@@ -1370,67 +1311,19 @@
     padding-block: 28px;
   }
 
-  html.snap .project-panel__label {
-    margin-bottom: 16px;
-  }
 
-  html.snap .project-card {
-    gap: 20px 44px;
-  }
 
-  html.snap .project-card__title {
-    margin-top: 8px;
-    font-size: clamp(2.25rem, 1rem + 2.8vw, 3.75rem);
-  }
 
-  html.snap .project-card__oneliner {
-    margin-top: 8px;
-    font-size: 1rem;
-  }
 
-  html.snap .project-card__body {
-    gap: 18px;
-  }
 
-  html.snap .project-card__facts {
-    gap: 14px;
-  }
 
-  html.snap .project-card__facts dd {
-    font-size: 1rem;
-  }
 
-  html.snap .task-list--compact {
-    gap: 6px;
-  }
 
-  html.snap .task-list--compact li {
-    padding: 3px 10px;
-    font-size: 0.8125rem;
-  }
 
-  html.snap .project-card__case {
-    padding: 18px 20px;
-  }
 
-  html.snap .project-card__hook {
-    margin-top: 10px;
-    font-size: 1.1875rem;
-  }
 
-  html.snap .project-card__case .case-summary {
-    margin-top: 14px;
-    padding-top: 12px;
-    gap: 8px;
-  }
 
-  html.snap .project-card__frame--portrait {
-    padding: 18px;
-  }
 
-  html.snap .project-card__frame--portrait .figure {
-    width: min(140px, 46%);
-  }
 
   html.snap .btn {
     min-height: 44px;
@@ -1507,5 +1400,15 @@
 
   html.snap #principles .principle__evidence {
     font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 680px) and (max-height: 880px) {
+  html.snap #projects .section-head {
+    margin-bottom: 28px;
+  }
+
+  html.snap #projects .section-head__title {
+    font-size: clamp(2rem, 1rem + 3vw, 3.5rem);
   }
 }
