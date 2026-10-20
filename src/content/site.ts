@@ -19,7 +19,7 @@ export const siteMeta: SiteMeta = {
   title: '김현수 — 불편함을 이해하고, 더 쉬운 경험을 만드는 프론트엔드 개발자',
   description:
     'DRAW&YOU와 띠링에서 UI 설계부터 웹·앱 프론트엔드 개발, API 연동과 배포까지 담당한 개발자 김현수의 포트폴리오입니다.',
-  ogImage: '/og/drawandyou.jpg',
+  ogImage: '/og/home.jpg',
   lang: 'ko',
 }
 
