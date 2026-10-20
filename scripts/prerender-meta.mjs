@@ -72,3 +72,9 @@ if (siteUrl) {
     .join('\n')}\n</urlset>\n`
   await writeFile(join(dist, 'sitemap.xml'), sitemap)
 }
+
+// 검색엔진 안내. 사이트 주소를 알면 sitemap 위치도 함께 적습니다.
+await writeFile(
+  join(dist, 'robots.txt'),
+  `User-agent: *\nAllow: /\n${siteUrl ? `\nSitemap: ${abs('/sitemap.xml')}\n` : ''}`,
+)
