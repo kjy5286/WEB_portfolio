@@ -398,64 +398,6 @@
   }
 }
 
-/* ---------- 첫 화면 다음: 주요 경험 ---------- */
-
-.intro-strip {
-  padding-block: 8px 72px;
-}
-
-@media (min-width: 1024px) {
-  .intro-strip {
-    padding-block: 16px 96px;
-  }
-}
-
-.hero__highlights {
-  display: grid;
-  border-top: 1px solid var(--line);
-}
-
-.hero__highlights li {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: 2px 12px;
-  padding-block: 18px;
-  border-bottom: 1px solid var(--line);
-}
-
-.hero__highlight-num {
-  grid-row: span 2;
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--accent);
-  padding-top: 4px;
-}
-
-.hero__highlights strong {
-  font-size: 1.0625rem;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-}
-
-.hero__highlights li > span:last-child {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
-}
-
-@media (min-width: 840px) {
-  .hero__highlights {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    border-top: 0;
-  }
-  .hero__highlights li {
-    border-bottom: 0;
-    border-top: 1px solid var(--line-strong);
-    padding-top: 20px;
-  }
-}
-
 /* ---------- Section head ---------- */
 
 .section-head {
@@ -501,17 +443,100 @@
   color: var(--text-muted);
 }
 
-/* ---------- Projects ---------- */
+/* ---------- Projects: 카드 ---------- */
 
-.project-list {
+.project-grid {
   display: grid;
-  gap: 96px;
+  gap: 32px;
 }
 
-@media (min-width: 1024px) {
-  .project-list {
-    gap: 144px;
+@media (min-width: 720px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
+}
+
+.project-card {
+  display: grid;
+  gap: 18px;
+  text-decoration: none;
+}
+
+.project-card__thumb {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  transition:
+    border-color 250ms var(--ease),
+    transform 250ms var(--ease),
+    box-shadow 250ms var(--ease);
+}
+
+/* 가로 화면: 꽉 채워 위쪽부터 보여 줌 */
+.project-card__thumb .figure,
+.project-card__thumb .shot {
+  height: 100%;
+}
+
+.project-card__thumb .shot {
+  border: 0;
+  border-radius: 0;
+}
+
+.project-card__thumb .shot img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* 세로 앱 화면: 원래 비율로 가운데 */
+.project-card__thumb--portrait {
+  position: relative;
+}
+
+.project-card__thumb--portrait .figure {
+  position: absolute;
+  top: 7%;
+  bottom: 7%;
+  left: 50%;
+  height: auto;
+  aspect-ratio: 360 / 800;
+  transform: translateX(-50%);
+}
+
+.project-card__thumb--portrait .shot {
+  border-radius: 14px;
+}
+
+.project-card__thumb--portrait .shot img {
+  object-fit: contain;
+}
+
+.project-card__info {
+  display: grid;
+  gap: 6px;
+}
+
+.project-card__title {
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  transition: color 200ms var(--ease);
+}
+
+.project-card__stack {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+.project-card__oneliner {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
 }
 
 .project-card__meta {
@@ -519,150 +544,42 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 10px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.project-card__num {
-  margin-right: 6px;
-  font-family: var(--mono);
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-weight: 700;
-}
-
-.project-card__title {
-  margin-top: 14px;
-  font-size: var(--fs-project);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.055em;
-}
-
-.project-card__oneliner {
-  margin-top: 16px;
-  max-width: 36rem;
-  font-size: 1.0625rem;
-  color: var(--text-muted);
-}
-
-@media (min-width: 1024px) {
-  .project-card__oneliner {
-    font-size: 1.1875rem;
-  }
-}
-
-.project-card {
-  display: grid;
-  gap: 28px;
-}
-
-@media (min-width: 1024px) {
-  .project-card {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'head body'
-      'media body';
-    gap: 32px 56px;
-    align-items: start;
-  }
-  .project-card__head {
-    grid-area: head;
-  }
-  .project-card__media {
-    grid-area: media;
-  }
-  .project-card__body {
-    grid-area: body;
-  }
-}
-
-.project-card__frame {
-  display: block;
-  border-radius: var(--radius);
-}
-
-.project-card__frame:hover img {
-  transform: scale(1.03);
-}
-
-.project-card__frame--wide .shot {
-  padding: 8px;
-}
-
-/* 세로형 앱 화면: 원래 비율 그대로, 읽을 수 있는 크기로 가운데 배치 */
-.project-card__frame--portrait {
-  display: grid;
-  justify-items: center;
-  padding: 28px 20px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-}
-
-.project-card__frame--portrait .figure {
-  width: min(190px, 58%);
-}
-
-.project-card__frame--portrait .shot,
-.detail-hero__media--portrait .shot {
-  border-radius: 16px;
-}
-
-.project-card__body {
-  display: grid;
-  gap: 28px;
-  align-content: start;
-}
-
-.project-card__facts {
-  display: grid;
-  gap: 24px;
-}
-
-.project-card__facts dd {
-  font-size: 1.0625rem;
-}
-
-.project-card__team {
-  display: block;
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 0.8125rem;
   color: var(--text-muted);
 }
 
-.project-card__case {
-  padding: 24px;
-  border-radius: var(--radius);
-  background: var(--surface);
-  border: 1px solid var(--line);
-}
-
-.project-card__case-type {
-  display: inline-block;
-  padding: 2px 10px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  font-size: 0.75rem;
+.project-card__more {
+  margin-left: auto;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--accent);
 }
 
-.project-card__hook {
-  margin-top: 14px;
-  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem);
-  font-weight: 800;
-  line-height: 1.38;
-  letter-spacing: -0.035em;
+.project-card__more .arrow {
+  margin-left: 6px;
 }
 
-.project-card__case .case-summary {
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
+@media (hover: hover) {
+  .project-card:hover .project-card__thumb {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 18px 40px -24px rgb(215 255 63 / 0.4);
+  }
+  .project-card:hover .shot img {
+    transform: scale(1.04);
+  }
+  .project-card:hover .project-card__title {
+    color: var(--accent);
+  }
+}
+
+.project-card:focus-visible {
+  outline-offset: 6px;
+}
+
+.detail-hero__media--portrait .shot {
+  border-radius: 16px;
 }
 
 /* ---------- Task list ---------- */
@@ -773,7 +690,7 @@
 
 @media (min-width: 840px) {
   .skills__row {
-    grid-template-columns: 11rem minmax(0, 1fr) auto;
+    grid-template-columns: 11rem minmax(0, 1fr);
     align-items: center;
     padding-block: 24px;
   }
@@ -789,40 +706,39 @@
 .skills__items ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
+  gap: 10px;
 }
 
+/* 기술 하나하나를 둥근 상자에 담고, 마우스를 올리면 살짝 커지며 강조 */
 .skills__items li {
-  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
-  font-weight: 750;
-  letter-spacing: -0.03em;
-}
-
-.skills__used {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.skills__project {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  padding: 2px 12px;
+  min-height: 48px;
+  padding: 8px 18px;
   border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  cursor: default;
   transition:
-    color 200ms var(--ease),
-    border-color 200ms var(--ease);
+    transform 220ms var(--ease),
+    border-color 220ms var(--ease),
+    background-color 220ms var(--ease),
+    color 220ms var(--ease),
+    box-shadow 220ms var(--ease);
 }
 
-.skills__project:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+/* 마우스가 있는 기기에서만 (터치 기기에서 눌린 상태로 남지 않게) */
+@media (hover: hover) {
+  .skills__items li:hover {
+    transform: translateY(-2px) scale(1.08);
+    border-color: var(--accent);
+    background: var(--surface-2);
+    color: var(--accent);
+    box-shadow: 0 10px 24px -12px rgb(215 255 63 / 0.35);
+  }
 }
 
 /* ---------- Principles ---------- */
@@ -853,6 +769,38 @@
   font-weight: 600;
   color: var(--accent);
   padding-top: 0.5em;
+}
+
+.principle__link {
+  grid-column: 2;
+  justify-self: start;
+}
+
+@media (min-width: 1024px) {
+  .principle {
+    grid-template-columns: 6rem minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  .principle__link {
+    grid-column: 3;
+    grid-row: 1;
+    white-space: nowrap;
+  }
+  .principle .principle__evidence {
+    max-width: 48rem;
+  }
+}
+
+.principle__experience {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 3px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
 }
 
 .principle__text {
@@ -1317,36 +1265,6 @@
 
 /* ---------- 섹션 단위 스크롤 (홈, 넓은 화면) ---------- */
 
-.project-panel + .project-panel {
-  margin-top: 96px;
-}
-
-.section--projects {
-  padding-block: 72px;
-}
-
-.project-panel__label {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 0;
-  margin-bottom: 28px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.project-panel__label .section-head__index {
-  margin-right: 12px;
-}
-
-.intro-strip__title {
-  margin-bottom: 20px;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
 @media (min-width: 1024px) and (min-height: 680px) {
   /* 섹션 하나가 한 화면. 한 칸씩 이동은 src/lib/usePanelScroll.ts가 처리합니다. */
   html.snap {
@@ -1366,49 +1284,8 @@
     width: 100%;
   }
 
-  html.snap .section--projects {
-    padding-block: 0;
-    border-top: 0;
-  }
 
-  html.snap .project-panel + .project-panel {
-    margin-top: 0;
-    border-top: 1px solid var(--line);
-  }
 
-  /* 주요 경험: 한 화면을 채우는 큰 글씨 */
-  html.snap .intro-strip .hero__highlights {
-    grid-template-columns: 1fr;
-    gap: 0;
-    border-top: 1px solid var(--line-strong);
-  }
-
-  html.snap .intro-strip .hero__highlights li {
-    grid-template-columns: 4rem 1fr;
-    align-items: baseline;
-    padding-block: 28px;
-    border-top: 0;
-    border-bottom: 1px solid var(--line-strong);
-  }
-
-  html.snap .intro-strip .hero__highlights strong {
-    font-size: clamp(1.75rem, 1rem + 2.2vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-  }
-
-  html.snap .intro-strip .hero__highlights li > span:last-child {
-    grid-column: 2;
-    font-size: 1.0625rem;
-  }
-
-  html.snap .intro-strip .hero__highlight-num {
-    font-size: 1rem;
-  }
-
-  html.snap .project-card__frame--portrait .figure {
-    width: min(170px, 50%);
-  }
 
   /* 기준 섹션이 한 화면에 들어오도록 간격 축소 */
   html.snap #principles .section-head {
@@ -1434,67 +1311,19 @@
     padding-block: 28px;
   }
 
-  html.snap .project-panel__label {
-    margin-bottom: 16px;
-  }
 
-  html.snap .project-card {
-    gap: 20px 44px;
-  }
 
-  html.snap .project-card__title {
-    margin-top: 8px;
-    font-size: clamp(2.25rem, 1rem + 2.8vw, 3.75rem);
-  }
 
-  html.snap .project-card__oneliner {
-    margin-top: 8px;
-    font-size: 1rem;
-  }
 
-  html.snap .project-card__body {
-    gap: 18px;
-  }
 
-  html.snap .project-card__facts {
-    gap: 14px;
-  }
 
-  html.snap .project-card__facts dd {
-    font-size: 1rem;
-  }
 
-  html.snap .task-list--compact {
-    gap: 6px;
-  }
 
-  html.snap .task-list--compact li {
-    padding: 3px 10px;
-    font-size: 0.8125rem;
-  }
 
-  html.snap .project-card__case {
-    padding: 18px 20px;
-  }
 
-  html.snap .project-card__hook {
-    margin-top: 10px;
-    font-size: 1.1875rem;
-  }
 
-  html.snap .project-card__case .case-summary {
-    margin-top: 14px;
-    padding-top: 12px;
-    gap: 8px;
-  }
 
-  html.snap .project-card__frame--portrait {
-    padding: 18px;
-  }
 
-  html.snap .project-card__frame--portrait .figure {
-    width: min(140px, 46%);
-  }
 
   html.snap .btn {
     min-height: 44px;
@@ -1528,6 +1357,58 @@
   }
 
   html.snap .skills__row {
-    padding-block: 16px;
+    padding-block: 14px;
+  }
+
+  html.snap .skills__items li {
+    min-height: 42px;
+    padding: 6px 15px;
+  }
+}
+
+/* 가치관: 관련 경험 표시가 더해져도 한 화면에 들어오도록 */
+@media (min-width: 1024px) and (min-height: 680px) {
+  html.snap #principles .principle {
+    padding-block: 18px;
+  }
+
+  html.snap #principles .principle__experience {
+    margin-bottom: 6px;
+  }
+
+  html.snap #principles .principle__text {
+    font-size: clamp(1.5rem, 1rem + 1.3vw, 2.25rem);
+  }
+
+  html.snap #principles .principle__evidence {
+    margin-top: 6px;
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 680px) and (max-height: 880px) {
+  html.snap #principles .section-head__title {
+    font-size: clamp(1.75rem, 1rem + 2vw, 2.5rem);
+  }
+
+  html.snap #principles .principle {
+    padding-block: 10px;
+  }
+
+  html.snap #principles .principle__text {
+    font-size: clamp(1.25rem, 0.9rem + 1vw, 1.75rem);
+  }
+
+  html.snap #principles .principle__evidence {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) and (min-height: 680px) and (max-height: 880px) {
+  html.snap #projects .section-head {
+    margin-bottom: 28px;
+  }
+
+  html.snap #projects .section-head__title {
+    font-size: clamp(2rem, 1rem + 3vw, 3.5rem);
   }
 }

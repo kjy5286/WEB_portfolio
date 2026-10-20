@@ -34,11 +34,6 @@ export const profile: Profile = {
   headlineEase: '더 쉬운 경험',
   /** 첫 화면 이름 아래 소개. \n 위치에서 줄을 바꿉니다. */
   subline: '프론트엔드를 중심으로 AI와 백엔드 영역까지 학습하며,\n풀스택 개발자로 성장하고 있습니다.',
-  highlights: [
-    { label: '웹·모바일 서비스 개발', detail: 'React 웹 서비스와 React Native 앱' },
-    { label: 'UI 설계부터 API 연동·배포까지', detail: 'Figma 설계 → 구현 → Vercel·APK 배포' },
-    { label: 'AI를 활용한 원인 분석과 직접 검증', detail: '원인 후보는 AI와 좁히고, 확인은 도구로' },
-  ],
   links: {
     github: 'https://github.com/kjy5286',
     /** public/files/ 아래의 PDF. 공개용 사본이라 전화번호는 지워 두었습니다. */
@@ -55,6 +50,7 @@ export const projects: Project[] = [
     name: 'DRAW&YOU',
     platform: '웹 서비스',
     period: '2025.07 – 2025.12',
+    stack: 'React · Vite · react-konva',
     oneLiner: '그림과 일기를 입력하면 AI 감정 분석 결과와 치유 콘텐츠를 확인할 수 있는 웹 서비스',
     audience: '그림과 일기로 감정을 기록하고, AI 감정 분석 결과와 치유 콘텐츠를 확인하려는 사용자',
     team: {
@@ -77,6 +73,13 @@ export const projects: Project[] = [
       action:
         'React 상태 흐름과 Konva 렌더링 구조를 단계별로 나눠 원인을 분석하고, 재렌더링 범위·레이어 분리·메모이제이션 위치를 점검했습니다.',
       result: '캔버스 반응 속도를 개선하고, React DevTools와 Performance 탭으로 변화를 확인했습니다.',
+    },
+    thumbnail: {
+      src: '/images/drawandyou/card-1600.webp',
+      srcSet: '/images/drawandyou/card-800.webp 800w, /images/drawandyou/card-1600.webp 1600w',
+      width: 1600,
+      height: 1000,
+      alt: 'DRAW&YOU 로고. 파란 꽃잎 모양 심볼과 “DRAW and YOU” 글자.',
     },
     hero: {
       src: '/images/drawandyou/canvas-1600.webp',
@@ -202,6 +205,7 @@ export const projects: Project[] = [
     name: '띠링',
     platform: '모바일 앱 (Android)',
     period: '2026.02 – 2026.06',
+    stack: 'React Native · TypeScript',
     oneLiner: '어르신과 보호자를 연결하는 AI 일상 돌봄 모바일 앱',
     audience: '어르신의 안부와 일상을 확인하려는 보호자, 그리고 간단한 흐름으로 안부 확인과 설문에 응답하는 어르신',
     team: {
@@ -230,6 +234,13 @@ export const projects: Project[] = [
       problem: '가족 목소리를 재현한 음성 안내는 친숙하지만, 보이스피싱 등에 악용될 수 있었습니다.',
       action: '가족 목소리 TTS를 제안한 뒤, 팀에서 제기된 악용 가능성을 함께 검토해 기능 범위를 다시 정했습니다.',
       result: '음성 안내 기능은 유지하고, 실제 가족 목소리를 재현하는 방식은 제외했습니다.',
+    },
+    thumbnail: {
+      src: '/images/ddiring/card-1600.webp',
+      srcSet: '/images/ddiring/card-800.webp 800w, /images/ddiring/card-1600.webp 1600w',
+      width: 1600,
+      height: 1000,
+      alt: '띠링 로고. 웃는 주황색 종 캐릭터와 “띠링 — 어르신 안부 확인 앱” 문구.',
     },
     hero: {
       src: '/images/ddiring/start-720.webp',
@@ -301,53 +312,55 @@ export const projects: Project[] = [
 ]
 
 /**
- * 기술 스택. 포트폴리오 PDF의 Skills 항목과 같고, 실제로 쓴 프로젝트를 함께 표시합니다.
+ * 기술 스택. 포트폴리오 PDF의 Skills 항목과 같습니다.
  * 숙련도(퍼센트·별점)는 표시하지 않습니다.
  */
 export const skills: SkillGroup[] = [
   {
     category: 'Frontend',
     items: ['React', 'TypeScript', 'JavaScript', 'Vite'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'API · Auth',
     items: ['Axios', 'REST API', 'JWT', 'Secure Store'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'Mobile',
     items: ['React Native', 'Expo', 'FCM', 'EAS Build'],
-    usedIn: ['ddiring'],
   },
   {
     category: 'UI · UX',
     items: ['Figma', 'User Flow', 'Responsive UI'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
   {
     category: 'Deploy',
     items: ['Vercel', 'Git', 'Android Test Build'],
-    usedIn: ['drawandyou', 'ddiring'],
   },
 ]
 
+/**
+ * 개발자로서의 가치관. 각 문장에 관련 경험을 함께 보여 주고, 링크로 실제 과정(상세 페이지)을 연결합니다.
+ * 근거 문장에는 프로젝트 이름을 쓰지 않습니다.
+ */
 export const principles: Principle[] = [
   {
     text: '사용자에게 필요한 기능부터 생각합니다.',
-    evidence: '띠링에서는 보호자와 어르신이 하는 일이 달라, 역할별로 화면과 흐름을 나눠 설계했습니다.',
+    experience: '웹·모바일 서비스 개발',
+    evidence: '웹과 모바일 서비스를 만들며, 사용자 역할마다 하는 일이 달라 역할별로 화면과 흐름을 나눠 설계했습니다.',
     projectSlug: 'ddiring',
     anchor: 'scope',
   },
   {
     text: 'AI의 제안은 직접 확인하고 적용합니다.',
-    evidence: 'DRAW&YOU 캔버스 문제의 원인 후보는 ChatGPT와 좁히고, 적용 여부는 DevTools와 Performance 탭으로 확인했습니다.',
+    experience: 'AI를 활용한 원인 분석과 직접 검증',
+    evidence: '성능 문제의 원인 후보는 AI와 함께 좁히고, 적용 여부는 DevTools와 Performance 탭으로 직접 확인했습니다.',
     projectSlug: 'drawandyou',
     anchor: 'analysis',
   },
   {
     text: '다른 관점을 반영해 더 나은 구현 방향을 찾습니다.',
-    evidence: '띠링에서 제가 제안한 가족 목소리 TTS에 대한 악용 우려를 받아들여, 음성 안내만 남기도록 조정했습니다.',
+    experience: 'UI 설계부터 API 연동·배포까지',
+    evidence: '설계부터 배포까지 맡으며 팀의 의견을 함께 검토했고, 악용 우려가 나온 기능은 범위를 다시 정했습니다.',
     projectSlug: 'ddiring',
     anchor: 'analysis',
   },

@@ -13,7 +13,6 @@ export interface Profile {
   headlineTrouble?: string
   headlineEase?: string
   subline: string
-  highlights: { label: string; detail: string }[]
   links: { github: string; portfolioPdf: string; email: string }
   closing: string
 }
@@ -55,6 +54,8 @@ export interface Project {
   platform: string
   /** 진행 기간. 예: '2025.07 – 2025.12' */
   period: string
+  /** 카드에 짧게 보여 줄 주요 기술 */
+  stack: string
   oneLiner: string
   audience: string
   team: { members: string[]; note: string }
@@ -65,6 +66,8 @@ export interface Project {
   hook: string
   summary: { problem: string; action: string; result: string }
   hero: Media
+  /** 홈 카드 전용 이미지 (16:10, 권장 1600×1000). 없으면 hero를 씁니다. */
+  thumbnail?: Media
   detail: {
     problem: { title: string; body: string[] }
     analysis: { title: string; intro: string; points: CasePoint[] }
@@ -87,12 +90,13 @@ export interface Project {
 export interface SkillGroup {
   category: string
   items: string[]
-  /** 이 기술을 실제로 사용한 프로젝트의 slug */
-  usedIn: string[]
 }
 
 export interface Principle {
   text: string
+  /** 이 가치관과 연결된 주요 경험 */
+  experience: string
+  /** 근거 문장 (프로젝트 이름은 쓰지 않음) */
   evidence: string
   projectSlug: string
   /** 상세 페이지 안의 섹션 id */

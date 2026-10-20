@@ -13,11 +13,10 @@ import { useDocumentMeta } from '../lib/useDocumentMeta'
 import { usePanelScroll } from '../lib/usePanelScroll'
 
 const NAV = [
-  { id: 'top', label: '처음' },
-  { id: 'principles', label: '기준' },
+  { id: 'top', label: '소개' },
+  { id: 'principles', label: '가치관' },
   { id: 'skills', label: '기술 스택' },
-  { id: 'about', label: '주요 경험' },
-  ...projects.map((p) => ({ id: `project-${p.slug}`, label: p.name })),
+  { id: 'projects', label: '프로젝트' },
   { id: 'contact', label: '연락' },
 ]
 
@@ -82,38 +81,37 @@ export function HomePage() {
         </a>
       </section>
 
-      {/* 2. 개발자로서의 기준 */}
+      {/* 2. 개발자로서의 가치관 (주요 경험 포함) */}
       <section id="principles" className="section panel" aria-labelledby="principles-title">
         <div className="container">
           <SectionHead
             index="01"
             id="principles-title"
-            title="개발자로서의 기준"
-            lead="각 문장은 실제 프로젝트에서 한 일과 연결되어 있습니다."
+            title="개발자로서의 가치관"
+            lead="실제로 일하며 지켜 온 세 가지와, 그와 연결된 경험입니다."
           />
           <ol className="principles">
-            {principles.map((pr, i) => {
-              const project = projects.find((p) => p.slug === pr.projectSlug)
-              return (
-                <Reveal as="li" key={pr.text} className="principle">
-                  <span className="principle__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
+            {principles.map((pr, i) => (
+              <Reveal as="li" key={pr.text} className="principle">
+                <span className="principle__num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="principle__body">
+                  <p className="principle__experience">
+                    <span className="sr-only">관련 경험: </span>
+                    {pr.experience}
+                  </p>
+                  <h3 className="principle__text">{pr.text}</h3>
+                  <p className="principle__evidence">{pr.evidence}</p>
+                </div>
+                <Link to={`/projects/${pr.projectSlug}#${pr.anchor}`} className="text-link principle__link">
+                  관련 과정 보기
+                  <span className="arrow arrow--gap" aria-hidden="true">
+                    →
                   </span>
-                  <div className="principle__body">
-                    <h3 className="principle__text">{pr.text}</h3>
-                    <p className="principle__evidence">{pr.evidence}</p>
-                    {project && (
-                      <Link to={`/projects/${pr.projectSlug}#${pr.anchor}`} className="text-link">
-                        {project.name}에서 확인하기
-                        <span className="arrow arrow--gap" aria-hidden="true">
-                          →
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </Reveal>
-              )
-            })}
+                </Link>
+              </Reveal>
+            ))}
           </ol>
         </div>
       </section>
@@ -133,63 +131,38 @@ export function HomePage() {
                     ))}
                   </ul>
                 </dd>
-                <dd className="skills__used">
-                  <span className="sr-only">사용한 프로젝트: </span>
-                  {g.usedIn.map((slug) => {
-                    const project = projects.find((p) => p.slug === slug)
-                    return project ? (
-                      <Link key={slug} to={`/projects/${slug}`} className="skills__project">
-                        {project.name}
-                      </Link>
-                    ) : null
-                  })}
-                </dd>
               </Reveal>
             ))}
           </dl>
         </div>
       </section>
 
-      {/* 4. 주요 경험 */}
-      <section id="about" className="intro-strip panel" aria-labelledby="about-title">
+      {/* 4. 대표 프로젝트: 카드 두 개를 한 화면에 */}
+      <section id="projects" className="section panel" aria-labelledby="projects-title">
         <div className="container">
-          <Reveal as="h2" id="about-title" className="intro-strip__title">
-            주요 경험
-          </Reveal>
-          <ul className="hero__highlights">
-            {profile.highlights.map((h, i) => (
-              <Reveal as="li" key={h.label} delay={i}>
-                <span className="hero__highlight-num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <strong>{h.label}</strong>
-                <span>{h.detail}</span>
+          <SectionHead
+            index="03"
+            id="projects-title"
+            title="대표 프로젝트"
+            lead={
+              <>
+                두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드를 맡았습니다.
+                <br />
+                카드를 누르면 문제 해결 과정을 볼 수 있습니다.
+              </>
+            }
+          />
+          <ul className="project-grid">
+            {projects.map((p, i) => (
+              <Reveal as="li" key={p.slug} delay={i}>
+                <ProjectCard project={p} />
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* 5. 대표 프로젝트 */}
-      <section id="projects" className="section section--projects" aria-labelledby="projects-title">
-        <h2 id="projects-title" className="sr-only">
-          대표 프로젝트
-        </h2>
-        {projects.map((p, i) => (
-          <div key={p.slug} id={`project-${p.slug}`} className="panel project-panel">
-            <div className="container">
-              <Reveal as="p" className="project-panel__label">
-                <span className="section-head__index">03</span>
-                대표 프로젝트 {i + 1}/{projects.length}
-                {i === 0 && <span className="project-panel__note"> · 두 프로젝트 모두 3인 팀에서 UI 설계와 프론트엔드 담당</span>}
-              </Reveal>
-              <ProjectCard project={p} index={i} />
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* 6. 마지막 영역 */}
+      {/* 5. 마지막 영역 */}
       <ContactSection />
     </>
   )
